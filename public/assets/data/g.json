@@ -6,9 +6,19 @@
       "link": "https://selenite.cc/semag/polytrack/index.html"
     },
     {
-      "icon": "assets/images/g/10mtd.jpg",
-      "title": "10 Minutes Till Dawn",
-      "link": "https://selenite.cc/semag/10minutestilldawn/index.html"
+      "icon": "assets/images/g/nzp.jpg",
+      "title": "Call of Duty Zombies (NZP)",
+      "link": "https://nzp.gay/"
+    },
+    {
+      "icon": "assets/images/g/super-mario-64.jpg",
+      "title": "Super Mario 64",
+      "link": "https://augustberchelmann.com/mario/"
+    },
+    {
+      "icon": "assets/images/g/minecraft.jpg",
+      "title": "Minecraft (1.8.8)",
+      "link": "https://eaglercraft.com/mc/1.8.8-wasm/"
     },
     {
       "icon": "assets/images/g/geometrydash.jpg",
