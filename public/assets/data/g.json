@@ -149,6 +149,11 @@
       "icon": "assets/images/g/minicarball.jpg",
       "title": "Mini Car Ball",
       "link": "https://games.crazygames.com/en_US/mini-car-ball/index.html"
+    },
+    {
+      "icon": "assets/images/g/nzp.jpg",
+      "title": "Cod Zombies",
+      "link": "https://nzp.gay/"
     }
   ]
 }
