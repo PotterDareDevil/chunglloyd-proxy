@@ -16,7 +16,7 @@ document.addEventListener('DOMContentLoaded', () => {
 		document.title = 'Loading... <3'
 		if (withToast) {
 			showToast(
-				'Consider joining our <a href="https://discord.gg/dJvdkPRheV" target="_blank" class="hover-link">Discord</a>&nbsp;<3',
+				'Want a game added? <a href="https://forms.gle/SVmCUFgg2hajCh1Q8" target="_blank" class="hover-link">Click here!</a>&nbsp;<3',
 				'success',
 				'heart'
 			)
