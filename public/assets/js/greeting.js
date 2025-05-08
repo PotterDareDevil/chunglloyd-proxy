@@ -11,7 +11,7 @@ window.onload = function() {
         });
         return;
     }
-    showToast(`Hey, ${storedName}! Welcome back to Waves!`, 'success', 'wave');
+    showToast(`Hey, ${storedName}! Welcome back to Chunglloyd Proxy!`, 'success', 'wave');
     const greetingElement = document.getElementById('greeting');
     if (greetingElement) {
         updateGreeting(storedName);
