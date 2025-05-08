@@ -27,7 +27,7 @@ document.addEventListener('DOMContentLoaded', function() {
     function displayApps(apps) {
         grid.innerHTML = '';
         if (apps.length === 0) {
-            grid.innerHTML = '<p>Zero apps were found matching your search :(</p>';
+            grid.innerHTML = '<p>I havent added that yet, come to me in person or go to the google form to recommend a game. :(</p>';
             return;
         }
 
