@@ -5,8 +5,6 @@ A sleek and minimalist Web Proxy.
 
 [![Better Stack Badge](https://uptime.betterstack.com/status-badges/v3/monitor/1r475.svg)](https://uptime.betterstack.com/?utm_source=status_badge)
 
-[![Join our Discord](https://invidget.switchblade.xyz/dJvdkPRheV)](https://discord.gg/dJvdkPRheV)
-
 > [!IMPORTANT]
 > Our main repository has now moved to https://gitea.sentt.lol/sent/waves. This repository will remain available, but it only contains around 20 games, whereas the Gitea version has over 430+ games. For the full collection, we recommend using the Gitea version.
 
