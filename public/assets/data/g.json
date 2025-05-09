@@ -21,6 +21,11 @@
       "link": "https://eaglercraft.com/mc/1.8.8-wasm/"
     },
     {
+      "icon": "/assets/images/g/geoguessr.jpg",
+      "title": "GeoGuessr",
+      "link": "https://www.geoguessr.com/"
+    },
+    {
       "icon": "assets/images/g/pako highway.jpg",
       "title": "Pako Highway",
       "link": "https://html-classic.itch.zone/html/6205826/index.html?v=1732313698"
