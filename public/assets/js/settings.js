@@ -6,9 +6,8 @@ document.addEventListener('DOMContentLoaded', function() {
     <button class="tab-button active" id="proxy-tab"><i class="fa-regular fa-server"></i> Proxy</button>
     <button class="tab-button" id="cloak-tab"><i class="fa-regular fa-user-secret"></i> Cloak</button>
     <button class="tab-button" id="appearance-tab"><i class="fa-regular fa-palette"></i> Appearance</button>
-    <button class="tab-button" id="info-tab"><i class="fa-regular fa-info"></i> Info</button>
   </div>
-  <div id="proxy-content" class="tab-content">
+  <div id="proxy-content" class="tab-content active">
     <label for="transport-selector">Transport</label>
     <p>Transport is how the proxy will send information.</p>
     <div class="transport-selector">
@@ -30,20 +29,18 @@ document.addEventListener('DOMContentLoaded', function() {
     <input type="checkbox" id="aboutblank-toggle">
   </div>
   <div id="appearance-content" class="tab-content">
+    <div class="scale-container">
+        <label for="ui-scale-slider">UI Scale</label>
+        <p>Adjust the size of the entire interface (50% - 200%)</p>
+        <div class="scale-slider-wrapper">
+            <input type="range" id="ui-scale-slider" min="50" max="200" value="100" step="5">
+            <span class="scale-value" id="scale-value">100%</span>
+            <button class="scale-reset" id="scale-reset">Reset</button>
+        </div>
+    </div>
     <label for="navbar-toggle">Navigation Bar</label>
     <p>Keep this on for the navigation bar when searching (Recommended).</p>
     <input type="checkbox" id="navbar-toggle">
-  </div>
-  <div id="info-content" class="tab-content">
-    <label>Version 2.3.5</label>
-    <label onmouseover="this.querySelector('span').style.color='lime'" onmouseout="this.querySelector('span').style.color='green'">
-      Server Status: <span style="color: green; transition: color 0.3s ease;">Running</span>
-    </label>
-    <p>If you want to see Waves status please visit <a href="https://status.usewaves.site" target="_blank" class="hover-link">https://status.usewaves.site</a>.</p>
-    <div style="display: flex; gap: 10px; justify-content: left; align-items: left; margin-top: 10px; margin-bottom: -20px;">
-      <label><a href="https://discord.gg/wves" target="_blank" class="hover-link"><i class="fab fa-discord" style="font-size: 20px;"></i></a></label>
-      <label><a href="https://github.com/xojw/waves" target="_blank" class="hover-link"><i class="fab fa-github" style="font-size: 20px;"></i></a></label>
-    </div>
   </div>
   <button id="close-settings"><i class="fa-regular fa-times"></i></button>
   `;
@@ -58,6 +55,45 @@ document.addEventListener('DOMContentLoaded', function() {
 	let currentWispUrl = localStorage.getItem('customWispUrl') || defaultWispUrl;
 	const wispInput = document.querySelector("#wisp-server");
 	wispInput.value = currentWispUrl;
+
+	// UI Scale Feature
+	const uiScaleSlider = document.getElementById('ui-scale-slider');
+	const scaleValue = document.getElementById('scale-value');
+	const scaleReset = document.getElementById('scale-reset');
+	
+	// Load saved scale
+	const savedScale = localStorage.getItem('uiScale') || '100';
+	if (uiScaleSlider) {
+		uiScaleSlider.value = savedScale;
+		if (scaleValue) scaleValue.textContent = savedScale + '%';
+		applyUIScale(savedScale);
+	}
+	
+	// Update scale on slider change
+	if (uiScaleSlider) {
+		uiScaleSlider.addEventListener('input', (e) => {
+			const scale = e.target.value;
+			if (scaleValue) scaleValue.textContent = scale + '%';
+			applyUIScale(scale);
+			localStorage.setItem('uiScale', scale);
+		});
+	}
+	
+	// Reset button
+	if (scaleReset) {
+		scaleReset.addEventListener('click', () => {
+			uiScaleSlider.value = 100;
+			if (scaleValue) scaleValue.textContent = '100%';
+			applyUIScale(100);
+			localStorage.setItem('uiScale', '100');
+			showToast('success', 'UI Scale reset to 100%');
+		});
+	}
+	
+	function applyUIScale(scale) {
+		const scaleDecimal = scale / 100;
+		document.body.style.zoom = scaleDecimal;
+	}
 
 	function isValidUrl(url) {
 		try {
@@ -139,29 +175,23 @@ document.addEventListener('DOMContentLoaded', function() {
 			location.reload();
 		});
 	}
-	document.getElementById('proxy-content').classList.add('active');
 
-	function switchTab(tabId, contentId, otherTabId1, otherContentId1, otherTabId2, otherContentId2, otherTabId3, otherContentId3) {
+	function switchTab(tabId, contentId, otherTabId1, otherContentId1, otherTabId2, otherContentId2) {
 		document.getElementById(otherContentId1).classList.remove('active');
 		document.getElementById(otherContentId2).classList.remove('active');
-		document.getElementById(otherContentId3).classList.remove('active');
 		document.getElementById(otherTabId1).classList.remove('active');
 		document.getElementById(otherTabId2).classList.remove('active');
-		document.getElementById(otherTabId3).classList.remove('active');
 		document.getElementById(contentId).classList.add('active');
 		document.getElementById(tabId).classList.add('active');
 	}
 	document.getElementById('proxy-tab').addEventListener('click', function() {
-		switchTab('proxy-tab', 'proxy-content', 'appearance-tab', 'appearance-content', 'cloak-tab', 'cloak-content', 'info-tab', 'info-content');
+		switchTab('proxy-tab', 'proxy-content', 'appearance-tab', 'appearance-content', 'cloak-tab', 'cloak-content');
 	});
 	document.getElementById('cloak-tab').addEventListener('click', function() {
-		switchTab('cloak-tab', 'cloak-content', 'proxy-tab', 'proxy-content', 'appearance-tab', 'appearance-content', 'info-tab', 'info-content');
+		switchTab('cloak-tab', 'cloak-content', 'proxy-tab', 'proxy-content', 'appearance-tab', 'appearance-content');
 	});
 	document.getElementById('appearance-tab').addEventListener('click', function() {
-		switchTab('appearance-tab', 'appearance-content', 'proxy-tab', 'proxy-content', 'cloak-tab', 'cloak-content', 'info-tab', 'info-content');
-	});
-	document.getElementById('info-tab').addEventListener('click', function() {
-		switchTab('info-tab', 'info-content', 'proxy-tab', 'proxy-content', 'appearance-tab', 'appearance-content', 'cloak-tab', 'cloak-content');
+		switchTab('appearance-tab', 'appearance-content', 'proxy-tab', 'proxy-content', 'cloak-tab', 'cloak-content');
 	});
 	navbarToggle.addEventListener('change', function() {
 		if (this.checked) {
