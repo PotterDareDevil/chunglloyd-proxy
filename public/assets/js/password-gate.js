@@ -1,18 +1,31 @@
-// CLG Password Gate
+// CLG Password Gate - Once per browser session
 (function() {
     const CORRECT_PASSWORD = "clifford2026";
     const SESSION_KEY = "clg_authenticated";
     
     // Check if already authenticated this session
     if (sessionStorage.getItem(SESSION_KEY) === "true") {
-        return; // Already unlocked, don't show gate
+        document.body.classList.remove('locked');
+        // Hide the gate immediately if it exists
+        const gate = document.getElementById('password-gate');
+        if (gate) gate.style.display = 'none';
+        return;
     }
     
     // Add locked class to body
     document.body.classList.add('locked');
     
-    document.addEventListener('DOMContentLoaded', () => {
+    // Wait for DOM
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', initPasswordGate);
+    } else {
+        initPasswordGate();
+    }
+    
+    function initPasswordGate() {
         const gate = document.getElementById('password-gate');
+        if (!gate) return;
+        
         const usernameInput = document.getElementById('gate-username');
         const passwordInput = document.getElementById('gate-password');
         const submitButton = document.getElementById('gate-submit');
@@ -24,33 +37,26 @@
             
             if (!username) {
                 showError('Please enter a username');
+                usernameInput.focus();
                 return;
             }
             
             if (!password) {
                 showError('Please enter the password');
+                passwordInput.focus();
                 return;
             }
             
             if (password === CORRECT_PASSWORD) {
                 // Success!
                 sessionStorage.setItem(SESSION_KEY, "true");
-                localStorage.setItem('userName', username); // Store username for greeting
+                localStorage.setItem('userName', username);
                 
                 gate.classList.add('unlocked');
                 document.body.classList.remove('locked');
                 
                 setTimeout(() => {
                     gate.style.display = 'none';
-                    
-                    // Trigger greeting
-                    const greetingEvent = new Event('load');
-                    window.dispatchEvent(greetingEvent);
-                    
-                    // Show success toast
-                    if (typeof showToast === 'function') {
-                        showToast('success', `Welcome back, ${username}! 🐰`);
-                    }
                 }, 500);
             } else {
                 showError('Incorrect password! Try again 🔒');
@@ -58,42 +64,54 @@
                 passwordInput.focus();
                 
                 // Shake animation
-                gate.querySelector('.password-container').style.animation = 'shake 0.5s';
-                setTimeout(() => {
-                    gate.querySelector('.password-container').style.animation = '';
-                }, 500);
+                const container = gate.querySelector('.password-container');
+                if (container) {
+                    container.style.animation = 'shake 0.5s';
+                    setTimeout(() => {
+                        container.style.animation = '';
+                    }, 500);
+                }
             }
         }
         
         function showError(message) {
-            errorDiv.textContent = message;
-            errorDiv.style.animation = 'shake 0.3s';
-            setTimeout(() => {
-                errorDiv.style.animation = '';
-            }, 300);
+            if (errorDiv) {
+                errorDiv.textContent = message;
+            }
         }
         
         // Submit on button click
-        submitButton.addEventListener('click', checkPassword);
+        submitButton.addEventListener('click', (e) => {
+            e.preventDefault();
+            checkPassword();
+        });
         
         // Submit on Enter key
         passwordInput.addEventListener('keypress', (e) => {
-            if (e.key === 'Enter') checkPassword();
+            if (e.key === 'Enter') {
+                e.preventDefault();
+                checkPassword();
+            }
         });
         
         usernameInput.addEventListener('keypress', (e) => {
             if (e.key === 'Enter') {
+                e.preventDefault();
                 passwordInput.focus();
             }
         });
         
         // Clear error on input
-        usernameInput.addEventListener('input', () => errorDiv.textContent = '');
-        passwordInput.addEventListener('input', () => errorDiv.textContent = '');
+        usernameInput.addEventListener('input', () => {
+            if (errorDiv) errorDiv.textContent = '';
+        });
+        passwordInput.addEventListener('input', () => {
+            if (errorDiv) errorDiv.textContent = '';
+        });
         
         // Auto-focus username
         setTimeout(() => usernameInput.focus(), 300);
-    });
+    }
     
     // Add shake animation
     const style = document.createElement('style');
