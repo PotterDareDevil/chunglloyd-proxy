@@ -78,31 +78,35 @@ body::after {
     border-left-color: #00D9FF !important;
 }
 
+/* Fixed: Navbar Brand Text with Proper Spacing */
 #waves {
-    font-size: 19px;
+    font-size: 16px;
     color: #00D9FF;
     display: inline-block;
     text-align: left;
-    margin: 1px 80px 0 10px;
+    margin: 1px 20px 0 10px;
     white-space: nowrap;
     cursor: default;
     transition: all 0.3s ease;
     font-weight: 600;
     text-shadow: 0 0 20px rgba(0, 217, 255, 0.5);
+    flex-shrink: 0;
 }
 
-/* Glassmorphism Navbar */
+/* Fixed: Glassmorphism Navbar with Proper Sizing */
 .home-navbar {
     transform: translateX(-50%);
-    width: 670px;
+    width: auto;
+    max-width: 800px;
+    min-width: 600px;
     top: 1%;
     margin-bottom: -10px;
     margin-left: 50%;
     background: rgba(26, 29, 41, 0.7);
     border: 1px solid rgba(0, 217, 255, 0.3);
-    height: 35px;
+    height: auto;
     color: #b3b3b3;
-    padding: 10px;
+    padding: 10px 20px;
     animation: fadeIn 2s ease;
     text-align: center;
     font-size: 18px;
@@ -113,7 +117,7 @@ body::after {
     border-radius: 25px;
     position: fixed;
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
     transition: transform 0.3s ease;
     box-shadow: 0 8px 32px 0 rgba(0, 217, 255, 0.15);
@@ -122,36 +126,52 @@ body::after {
 .home-navbar .favicon {
     width: 24px;
     height: 24px;
-    margin-right: -10px;
+    margin-right: 8px;
     vertical-align: middle;
     filter: drop-shadow(0 0 8px rgba(0, 217, 255, 0.6));
+    flex-shrink: 0;
 }
 
 .home-navbar a {
     color: #e6e6e6;
     text-decoration: none;
-    padding: 8px 16px;
+    padding: 8px 12px;
     font-size: 14px;
     font-weight: 400;
     border-radius: 5px;
     position: relative;
     transition: all 0.3s ease;
+    white-space: nowrap;
 }
 
 .home-navbar a:hover {
-    font-size: 16px;
     color: #00D9FF;
     text-shadow: 0 0 10px rgba(0, 217, 255, 0.5);
+    transform: scale(1.05);
 }
 
 .home-navbar a:active {
-    font-size: 12px;
+    transform: scale(0.95);
 }
 
+/* Fixed: Settings Icon Alignment */
 .home-navbar i {
     color: #00D9FF;
-    margin-right: -15px;
-    margin-left: 115px;
+    font-size: 18px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-left: 10px;
+}
+
+.home-navbar i:hover {
+    transform: rotate(90deg);
+    color: #00eeff;
+}
+
+.home-navbar #settings-icon {
+    display: flex;
+    align-items: center;
+    padding: 8px;
 }
 
 ::-webkit-scrollbar {
@@ -180,7 +200,7 @@ body::after {
     border: 1px solid rgba(0, 217, 255, 0.25);
     left: 50%;
     width: 1180px;
-    max-width: 100%;
+    max-width: 95%;
     display: none;
     border-radius: 25px;
     align-items: center;
@@ -325,6 +345,7 @@ body::after {
     width: 90%;
 }
 
+/* Fixed: Main Title with Space */
 .search-title {
     font-size: 80px;
     font-weight: 700;
@@ -334,10 +355,10 @@ body::after {
     -webkit-background-clip: text;
     background-clip: text;
     -webkit-text-fill-color: transparent;
-    color: transparent;
     cursor: default;
     transition: all 0.3s ease;
     filter: drop-shadow(0 0 30px rgba(0, 217, 255, 0.4));
+    letter-spacing: 2px;
 }
 
 .search-title span {
@@ -346,7 +367,6 @@ body::after {
     -webkit-background-clip: text;
     background-clip: text;
     -webkit-text-fill-color: transparent;
-    color: transparent;
     opacity: 0;
     transform: translateX(-50px);
     animation: fadeInFromLeft 0.5s ease-in-out forwards;
