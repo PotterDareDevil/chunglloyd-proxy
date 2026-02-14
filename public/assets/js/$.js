@@ -154,11 +154,11 @@ document.addEventListener('DOMContentLoaded', () => {
 	})
 	if (movies) movies.addEventListener('click', e => {
 		e.preventDefault()
-		handleSearch('https://movies.usewaves.site/')
+		handleSearch('https://www.cineby.gd/')
 	})
 	if (ai) ai.addEventListener('click', e => {
 		e.preventDefault()
-		handleSearch('https://ai.usewaves.site/')
+		handleSearch('https://chatgpt.com/')
 	})
 	function clearBackground() {
 		const preserved = [
