@@ -10,25 +10,24 @@ body {
     cursor: none;
 }
 
-/* Custom Cursor */
-.custom-cursor {
-    width: 20px;
-    height: 20px;
-    border: 2px solid #00D9FF;
-    border-radius: 50%;
-    position: fixed;
-    top: 0;
-    left: 0;
-    pointer-events: none;
-    z-index: 999999;
-    transform: translate(-50%, -50%);
-    transition: background 0.15s ease, transform 0.15s ease, border-color 0.15s ease;
-    mix-blend-mode: screen;
+/* Custom Smooth Cursor - Single Dynamic Dot */
+* {
+    cursor: none !important;
 }
 
+body {
+    cursor: none;
+}
+
+/* Hide outer cursor, only show dot */
+.custom-cursor {
+    display: none;
+}
+
+/* Custom Cursor Dot - Bigger and Dynamic */
 .custom-cursor-dot {
-    width: 6px;
-    height: 6px;
+    width: 12px;
+    height: 12px;
     background-color: #00D9FF;
     border-radius: 50%;
     position: fixed;
@@ -37,19 +36,20 @@ body {
     transform: translate(-50%, -50%);
     pointer-events: none;
     z-index: 9999999;
-    transition: transform 0.1s ease;
-    box-shadow: 0 0 10px rgba(0, 217, 255, 0.8);
+    transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    box-shadow: 0 0 15px rgba(0, 217, 255, 0.8), 0 0 30px rgba(0, 217, 255, 0.4);
 }
 
-.custom-cursor.hover {
-    background-color: rgba(0, 217, 255, 0.2);
-    transform: translate(-50%, -50%) scale(1.5);
-    border-color: #00eeff;
+.custom-cursor-dot.hover {
+    transform: translate(-50%, -50%) scale(1.8);
+    background-color: #00eeff;
+    box-shadow: 0 0 20px rgba(0, 217, 255, 1), 0 0 40px rgba(0, 217, 255, 0.6);
 }
 
-.custom-cursor.click {
-    transform: translate(-50%, -50%) scale(0.8);
-    background-color: rgba(0, 217, 255, 0.4);
+.custom-cursor-dot.click {
+    transform: translate(-50%, -50%) scale(0.6);
+    background-color: #ffffff;
+    box-shadow: 0 0 25px rgba(0, 217, 255, 1), 0 0 50px rgba(0, 217, 255, 0.8);
 }
 
 
