@@ -1,20 +1,23 @@
+/* CLG Settings Menu */
 .settings-menu {
     position: fixed;
-    font-family: 'Inter', sans-serif;
+    font-family: 'Space Grotesk', sans-serif;
     top: 47%;
     left: 50%;
     transform: translate(-50%, -50%);
-    background-color: #08080894;
-    border: 1px solid #ffffff21;
+    background: rgba(26, 29, 41, 0.85);
+    border: 1px solid rgba(0, 217, 255, 0.3);
     padding: 25px 30px;
     border-radius: 20px;
     width: 450px;
     z-index: 999999;
-    backdrop-filter: blur(10px);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
     color: #e0e0e0;
     text-align: center;
     display: none;
     transition: transform 0.3s ease-out, opacity 0.3s ease-out;
+    box-shadow: 0 8px 32px 0 rgba(0, 217, 255, 0.25);
 }
 
 #settings-menu h2 {
@@ -23,38 +26,44 @@
     margin-left: -20px;
     text-align: left;
     font-size: 35px;
-    font-weight: 600;
-    color: #ffffff;
+    font-weight: 700;
+    color: #00D9FF;
     letter-spacing: 2px;
+    text-shadow: 0 0 20px rgba(0, 217, 255, 0.5);
 }
 
 #settings-menu select {
     width: 100%;
-    padding: 7px;
+    padding: 10px 15px;
     margin-bottom: 15px;
-    background-color: #1b1b1b;
+    background: rgba(15, 17, 23, 0.8);
     color: #e0e0e0;
-    border: 1px solid #4141411a;
+    border: 1px solid rgba(0, 217, 255, 0.2);
     border-radius: 15px;
-    font-size: 18px;
+    font-size: 16px;
+    font-family: 'Space Grotesk', sans-serif;
     outline: none;
-    transition: background-color 0.3s, transform 0.2s ease, box-shadow 0.2s ease;
+    transition: all 0.3s ease;
 }
 
-#settings-menu select:focus {
-    transform: scale(1.02);
+#settings-menu select:focus,
+#settings-menu select:hover {
+    border-color: rgba(0, 217, 255, 0.6);
+    background: rgba(15, 17, 23, 0.95);
+    box-shadow: 0 0 15px rgba(0, 217, 255, 0.2);
+    transform: translateY(-2px);
 }
 
 #close-settings {
     position: absolute;
     top: 17px;
-    right: 10px;
+    right: 15px;
     background-color: transparent;
     border: none;
     padding: 0;
     font-size: 10px;
-    color: #888888;
-    cursor: pointer;
+    color: #b3b3b3;
+    cursor: none;
     z-index: 1000;
     outline: none;
     display: inline-flex;
@@ -63,16 +72,12 @@
 
 #close-settings:hover {
     transform: rotate(90deg);
-    color: #d3d3d3;
+    color: #00D9FF;
 }
 
 #close-settings i {
-    font-size: 20px;
+    font-size: 22px;
     line-height: 0;
-}
-
-#settings-menu select:hover {
-    background-color: #333;
 }
 
 .settings-menu.open {
@@ -93,12 +98,13 @@
 }
 
 .transport-selected {
-    background-color: #141414;
+    background: rgba(15, 17, 23, 0.8);
     color: #e0e0e0;
-    padding: 10px;
-    border: 1px solid #4141411a;
+    padding: 12px 15px;
+    border: 1px solid rgba(0, 217, 255, 0.2);
     border-radius: 15px;
-    cursor: pointer;
+    font-family: 'Space Grotesk', sans-serif;
+    cursor: none;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -106,14 +112,17 @@
 }
 
 .transport-selected:hover {
-    background-color: #333;
+    background: rgba(15, 17, 23, 0.95);
+    border-color: rgba(0, 217, 255, 0.5);
+    box-shadow: 0 0 15px rgba(0, 217, 255, 0.2);
 }
 
 .transport-selected::after {
     content: "\f107";
     font-family: "Font Awesome 6 Pro";
     font-weight: 900;
-    font-size: 0.8em;
+    font-size: 0.9em;
+    color: #00D9FF;
     transition: transform 0.3s ease;
 }
 
@@ -127,14 +136,15 @@
     margin-top: 5px;
     left: 0;
     right: 0;
-    background-color: #141414;
-    border: 1px solid #ffffff1a;
+    background: rgba(15, 17, 23, 0.95);
+    border: 1px solid rgba(0, 217, 255, 0.3);
     border-radius: 15px;
     max-height: 0;
     text-align: left;
     overflow: hidden;
     transition: max-height 0.3s ease, opacity 0.3s ease;
     opacity: 0;
+    box-shadow: 0 4px 16px rgba(0, 217, 255, 0.2);
 }
 
 .transport-options.transport-show {
@@ -144,12 +154,15 @@
 
 .transport-options div {
     padding: 10px 15px;
-    cursor: pointer;
+    font-family: 'Space Grotesk', sans-serif;
+    color: #e0e0e0;
+    cursor: none;
     transition: background-color 0.2s ease;
 }
 
 .transport-options div:hover {
-    background-color: #333;
+    background-color: rgba(0, 217, 255, 0.1);
+    color: #00D9FF;
 }
 
 #wisp-server {
@@ -157,102 +170,116 @@
     max-width: 270px;
     padding: 10px 15px;
     margin-left: -80px;
-    background-color: #141414;
+    background: rgba(15, 17, 23, 0.8);
     color: #e0e0e0;
-    border: 1px solid #4141411a;
+    border: 1px solid rgba(0, 217, 255, 0.2);
     border-radius: 15px;
     font-size: 15px;
+    font-family: 'Space Grotesk', sans-serif;
     outline: none;
-    transition: background-color 0.3s, transform 0.2s ease, border-color 0.3s ease;
+    transition: all 0.3s ease;
 }
 
 #wisp-server:hover,
 #wisp-server:focus {
-    border: 1px solid #ffffff69;
+    border-color: rgba(0, 217, 255, 0.6);
+    background: rgba(15, 17, 23, 0.95);
+    box-shadow: 0 0 15px rgba(0, 217, 255, 0.2);
 }
 
 #wisp-server::placeholder {
-    font-size: 0.8em;
-    color: #525252;
+    font-size: 0.9em;
+    color: #b3b3b3;
 }
 
 #save-wisp-url {
-    padding: 8px 10px;
-    background-color: #c4c4c4;
-    border: 1px solid #4141411a;
-    color: #000000;
+    padding: 10px 16px;
+    background-color: #00D9FF;
+    border: 1px solid rgba(0, 217, 255, 0.3);
+    color: #0f1117;
     font-size: 16px;
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 600;
     margin-left: 0;
     border-radius: 15px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
+    cursor: none;
+    transition: all 0.3s ease;
 }
 
 #save-wisp-url:hover {
-    background-color: #ffffff;
+    background-color: #00eeff;
+    box-shadow: 0 0 20px rgba(0, 217, 255, 0.5);
+    transform: translateY(-2px);
 }
 
 #save-wisp-url:active {
     transform: scale(0.95);
 }
 
+/* CLG Toggle Switches */
 #aboutblank-toggle, #navbar-toggle {
     appearance: none;
     width: 60px;
     height: 30px;
     margin-left: -390px;
-    background-color: #131313;
+    background: rgba(15, 17, 23, 0.8);
     margin-bottom: 10px;
     border-radius: 30px;
+    border: 1px solid rgba(0, 217, 255, 0.2);
     position: relative;
     outline: none;
-    cursor: pointer;
-    transition: background-color 0.3s, box-shadow 0.3s;
-    box-shadow: inset -2px -2px 5px #ffffff33, inset 2px 2px 5px #00000033, 2px 2px 5px #0000001a;
+    cursor: none;
+    transition: all 0.3s ease;
 }
 
 #aboutblank-toggle:hover, #navbar-toggle:hover {
-    box-shadow: inset -3px -3px 6px #ffffff4d, inset 3px 3px 6px #0000004d, 3px 3px 6px #0003;
+    border-color: rgba(0, 217, 255, 0.5);
+    box-shadow: 0 0 15px rgba(0, 217, 255, 0.2);
 }
 
 #aboutblank-toggle:checked, #navbar-toggle:checked {
-    background-color: #7a7a7a;
+    background: rgba(0, 217, 255, 0.3);
+    border-color: rgba(0, 217, 255, 0.6);
 }
 
 #aboutblank-toggle::before, #navbar-toggle::before {
     content: '';
     width: 26px;
     height: 26px;
-    background-color: #cccccc;
-    backdrop-filter: blur(10px);
+    background: linear-gradient(135deg, #b3b3b3, #e0e0e0);
     border-radius: 50%;
     position: absolute;
-    top: 2px;
-    left: 2px;
-    transition: transform 0.5s, box-shadow 0.3s;
+    top: 1px;
+    left: 1px;
+    transition: transform 0.3s ease, background 0.3s ease;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
 }
 
 #aboutblank-toggle:checked::before, #navbar-toggle:checked::before {
     transform: translateX(30px);
+    background: linear-gradient(135deg, #00D9FF, #00eeff);
+    box-shadow: 0 0 10px rgba(0, 217, 255, 0.6);
 }
 
 #settings-menu label {
     display: block;
     margin-bottom: 15px;
     text-align: left;
-    font-size: 20px;
-    font-weight: 500;
-    color: #e0e0e0;
+    font-size: 18px;
+    font-weight: 600;
+    color: #00D9FF;
+    font-family: 'Space Grotesk', sans-serif;
 }
 
 #settings-menu p {
     font-size: 14px;
-    color: #666666;
+    color: #b3b3b3;
     margin-top: -5px;
     text-align: left;
-    font-weight: 500;
+    font-weight: 400;
     margin-bottom: 10px;
     transition: color 0.3s ease;
+    font-family: 'Space Grotesk', sans-serif;
 }
 
 .settings-tabs {
@@ -260,29 +287,36 @@
     justify-content: flex-start;
     transition: 0.3s ease;
     margin-bottom: 20px;
+    gap: 8px;
 }
 
 .tab-button {
-    background-color: #1b1b1b;
+    background: rgba(15, 17, 23, 0.8);
     color: #e0e0e0;
-    padding: 12px 14px;
-    border: 1px solid #4141411a;
+    padding: 12px 18px;
+    border: 1px solid rgba(0, 217, 255, 0.2);
     border-radius: 15px;
     font-size: 16px;
-    cursor: pointer;
-    transition: background-color 0.3s, transform 0.3s ease, box-shadow 0.3s;
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 500;
+    cursor: none;
+    transition: all 0.3s ease;
     margin-top: -10px;
-    margin-right: 8px;
 }
 
 .tab-button:hover {
-    background-color: #333;
+    background: rgba(15, 17, 23, 0.95);
+    border-color: rgba(0, 217, 255, 0.5);
+    color: #00D9FF;
+    transform: translateY(-2px);
 }
 
 .tab-button.active {
-    background-color: #333;
-    color: #ffffff;
+    background: rgba(0, 217, 255, 0.2);
+    border-color: rgba(0, 217, 255, 0.6);
+    color: #00D9FF;
     transform: translateY(-4px);
+    box-shadow: 0 4px 15px rgba(0, 217, 255, 0.3);
 }
 
 .tab-content {
@@ -304,7 +338,7 @@
 @keyframes openMenu {
     0% {
         opacity: 0;
-        transform: translate(-50%, -50%) scale(0);
+        transform: translate(-50%, -50%) scale(0.8);
     }
     100% {
         opacity: 1;
@@ -319,6 +353,6 @@
     }
     100% {
         opacity: 0;
-        transform: translate(-50%, -50%) scale(0);
+        transform: translate(-50%, -50%) scale(0.8);
     }
 }
