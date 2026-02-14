@@ -1,6 +1,37 @@
 /* CLG Brand - Space Grotesk Font Import */
 @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap');
 
+/* CLG Theme Variables */
+:root {
+    --clg-primary: #00D9FF;
+    --clg-primary-light: #00eeff;
+    --clg-primary-dark: #00c4e6;
+    --clg-shadow: rgba(0, 217, 255, 0.5);
+    --particles-opacity: 1;
+}
+
+/* Theme variations */
+body[data-theme="purple"] {
+    --clg-primary: #a855f7;
+    --clg-primary-light: #c084fc;
+    --clg-primary-dark: #9333ea;
+    --clg-shadow: rgba(168, 85, 247, 0.5);
+}
+
+body[data-theme="red"] {
+    --clg-primary: #ef4444;
+    --clg-primary-light: #f87171;
+    --clg-primary-dark: #dc2626;
+    --clg-shadow: rgba(239, 68, 68, 0.5);
+}
+
+body[data-theme="green"] {
+    --clg-primary: #10b981;
+    --clg-primary-light: #34d399;
+    --clg-primary-dark: #059669;
+    --clg-shadow: rgba(16, 185, 129, 0.5);
+}
+
 /* Custom Smooth Cursor - Fixed Positioning */
 * {
     cursor: none !important;
