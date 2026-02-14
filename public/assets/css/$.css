@@ -3,10 +3,10 @@
 
 /* CLG Theme Variables */
 :root {
-    --clg-primary: #00D9FF;
-    --clg-primary-light: #00eeff;
+    --clg-primary: var(--clg-primary);
+    --clg-primary-light: var(--clg-primary-light);
     --clg-primary-dark: #00c4e6;
-    --clg-shadow: rgba(0, 217, 255, 0.5);
+    --clg-shadow: var(--clg-shadow);
     --particles-opacity: 1;
 }
 
@@ -59,7 +59,7 @@ body {
 .custom-cursor-dot {
     width: 12px;
     height: 12px;
-    background-color: #00D9FF;
+    background-color: var(--clg-primary);
     border-radius: 50%;
     position: fixed;
     top: 0;
@@ -73,7 +73,7 @@ body {
 
 .custom-cursor-dot.hover {
     transform: translate(-50%, -50%) scale(1.8);
-    background-color: #00eeff;
+    background-color: var(--clg-primary-light);
     box-shadow: 0 0 20px rgba(0, 217, 255, 1), 0 0 40px rgba(0, 217, 255, 0.6);
 }
 
@@ -107,7 +107,7 @@ body::before {
     left: 0;
     width: 100%;
     height: 100%;
-    background: linear-gradient(135deg, #0f1117 0%, #1a1d29 25%, #00D9FF15 50%, #1a1d29 75%, #0f1117 100%);
+    background: linear-gradient(135deg, #0f1117 0%, #1a1d29 25%, var(--clg-primary)15 50%, #1a1d29 75%, #0f1117 100%);
     background-size: 400% 400%;
     animation: gradientShift 15s ease infinite;
     z-index: -2;
@@ -142,30 +142,30 @@ body::after {
 }
 
 ::selection {
-    background-color: #00D9FF;
+    background-color: var(--clg-primary);
     color: #0f1117;
 }
 
 /* NProgress CLG Theme */
 #nprogress .bar {
-    background: #00D9FF !important;
+    background: var(--clg-primary) !important;
     z-index: 99999 !important;
-    box-shadow: 0 0 60px #00D9FFcc, 0 0 90px #00D9FF99, 0 0 150px #00D9FF66 !important;
+    box-shadow: 0 0 60px var(--clg-primary)cc, 0 0 90px var(--clg-primary)99, 0 0 150px var(--clg-primary)66 !important;
 }
 
 #nprogress .peg {
-    box-shadow: 0 0 100px #00D9FFcc, 0 0 150px #00D9FF99, 0 0 200px #00D9FF66 !important;
+    box-shadow: 0 0 100px var(--clg-primary)cc, 0 0 150px var(--clg-primary)99, 0 0 200px var(--clg-primary)66 !important;
 }
 
 #nprogress .spinner-icon {
-    border-top-color: #00D9FF !important;
-    border-left-color: #00D9FF !important;
+    border-top-color: var(--clg-primary) !important;
+    border-left-color: var(--clg-primary) !important;
 }
 
 /* Fixed: Navbar Brand Text - Smaller Size */
 #waves {
     font-size: 15px;
-    color: #00D9FF;
+    color: var(--clg-primary);
     display: inline-block;
     text-align: left;
     margin: 1px 15px 0 5px;
@@ -173,7 +173,7 @@ body::after {
     cursor: none;
     transition: all 0.3s ease;
     font-weight: 600;
-    text-shadow: 0 0 20px rgba(0, 217, 255, 0.5);
+    text-shadow: 0 0 20px var(--clg-shadow);
     flex-shrink: 0;
 }
 
@@ -230,8 +230,8 @@ body::after {
 }
 
 .home-navbar a:hover {
-    color: #00D9FF;
-    text-shadow: 0 0 10px rgba(0, 217, 255, 0.5);
+    color: var(--clg-primary);
+    text-shadow: 0 0 10px var(--clg-shadow);
     transform: scale(1.05);
 }
 
@@ -241,7 +241,7 @@ body::after {
 
 /* Fixed: Settings Icon Alignment */
 .home-navbar i {
-    color: #00D9FF;
+    color: var(--clg-primary);
     font-size: 18px;
     cursor: pointer;
     transition: all 0.3s ease;
@@ -250,7 +250,7 @@ body::after {
 
 .home-navbar i:hover {
     transform: rotate(90deg);
-    color: #00eeff;
+    color: var(--clg-primary-light);
 }
 
 .home-navbar #settings-icon {
@@ -268,12 +268,12 @@ body::after {
 }
 
 ::-webkit-scrollbar-thumb {
-    background: #00D9FF;
+    background: var(--clg-primary);
     border-radius: 6px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-    background: #00eeff;
+    background: var(--clg-primary-light);
 }
 
 /* Secondary Navbar with Glassmorphism */
@@ -324,7 +324,7 @@ body::after {
 
 .navbar a {
     display: block;
-    color: #00D9FF;
+    color: var(--clg-primary);
     text-align: center;
     padding: 16px;
     transform-origin: center;
@@ -398,7 +398,7 @@ body::after {
     font-size: 12px;
     font-weight: 500;
     color: #0f1117;
-    background-color: #00D9FF;
+    background-color: var(--clg-primary);
     padding: 2px 6px;
     border-radius: 7px;
     cursor: pointer;
@@ -406,8 +406,8 @@ body::after {
 }
 
 .shortcut-indicator-2:hover {
-    background-color: #00eeff;
-    box-shadow: 0 0 10px rgba(0, 217, 255, 0.5);
+    background-color: var(--clg-primary-light);
+    box-shadow: 0 0 10px var(--clg-shadow);
 }
 
 #lockIcon {
@@ -416,7 +416,7 @@ body::after {
     top: 50%;
     font-size: 20px;
     transform: translateY(-50%);
-    color: #00D9FF;
+    color: var(--clg-primary);
 }
 
 /* Main Search Container */
@@ -436,7 +436,7 @@ body::after {
     font-weight: 700;
     text-align: center;
     display: inline-block;
-    background: linear-gradient(135deg, #00D9FF, #00eeff, #ffffff);
+    background: linear-gradient(135deg, var(--clg-primary), var(--clg-primary-light), #ffffff);
     -webkit-background-clip: text;
     background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -506,7 +506,7 @@ body::after {
     font-size: 12px;
     font-weight: 500;
     color: #0f1117;
-    background-color: #00D9FF;
+    background-color: var(--clg-primary);
     padding: 2px 6px;
     border-radius: 7px;
     cursor: pointer;
@@ -514,8 +514,8 @@ body::after {
 }
 
 .shortcut-indicator:hover {
-    background-color: #00eeff;
-    box-shadow: 0 0 10px rgba(0, 217, 255, 0.5);
+    background-color: var(--clg-primary-light);
+    box-shadow: 0 0 10px var(--clg-shadow);
 }
 
 #erudaLoadingScreen {
@@ -526,7 +526,7 @@ body::after {
     background: rgba(26, 29, 41, 0.95);
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
-    color: #00D9FF;
+    color: var(--clg-primary);
     font-size: 3em;
     font-family: 'Space Grotesk', sans-serif;
     z-index: 10000;
@@ -567,13 +567,13 @@ body::after {
 }
 
 .hover-link {
-    color: #00D9FF;
+    color: var(--clg-primary);
     text-decoration: none;
     transition: color 0.3s ease;
 }
 
 .hover-link:hover {
-    color: #00eeff;
+    color: var(--clg-primary-light);
     text-shadow: 0 0 10px rgba(0, 217, 255, 0.6);
 }
 
@@ -594,7 +594,7 @@ body::after {
 }
 
 #pingDisplay:hover {
-    color: #00D9FF;
+    color: var(--clg-primary);
 }
 
 /* CLG Themed God Rays */
@@ -670,7 +670,7 @@ body::after {
 #namePrompt .input-container label {
     display: block;
     font-size: 20px;
-    color: #00D9FF;
+    color: var(--clg-primary);
     font-weight: 600;
     text-align: left;
 }
@@ -697,7 +697,7 @@ body::after {
 .input-wrapper:hover::before,
 .input-wrapper:focus-within::before {
     font-weight: 900;
-    color: #00D9FF;
+    color: var(--clg-primary);
 }
 
 .input-container input {
@@ -732,7 +732,7 @@ body::after {
 
 .input-container button {
     padding: 10px;
-    background-color: #00D9FF;
+    background-color: var(--clg-primary);
     border: 2px solid rgba(0, 217, 255, 0.3);
     color: #0f1117;
     font-size: 18px;
@@ -745,8 +745,8 @@ body::after {
 }
 
 .input-container button:hover {
-    background-color: #00eeff;
-    box-shadow: 0 0 20px rgba(0, 217, 255, 0.5);
+    background-color: var(--clg-primary-light);
+    box-shadow: 0 0 20px var(--clg-shadow);
     transform: translateY(-2px);
 }
 
@@ -773,7 +773,7 @@ body::after {
 }
 
 #greeting:hover {
-    color: #00D9FF;
+    color: var(--clg-primary);
 }
 
 #namePrompt.fade-out {
@@ -909,7 +909,7 @@ body::after {
 
 .quick-card i {
     font-size: 28px;
-    color: #00D9FF;
+    color: var(--clg-primary);
     transition: all 0.3s ease;
 }
 
@@ -963,7 +963,7 @@ body::after {
 }
 
 .footer-links a:hover {
-    color: #00D9FF;
+    color: var(--clg-primary);
 }
 
 .footer-divider {
@@ -1040,8 +1040,8 @@ body::after {
     height: 120px;
     margin-bottom: 20px;
     border-radius: 50%;
-    border: 3px solid #00D9FF;
-    box-shadow: 0 0 30px rgba(0, 217, 255, 0.5);
+    border: 3px solid var(--clg-primary);
+    box-shadow: 0 0 30px var(--clg-shadow);
     animation: float 3s ease-in-out infinite;
 }
 
@@ -1053,7 +1053,7 @@ body::after {
 .password-header h1 {
     font-size: 42px;
     font-weight: 700;
-    background: linear-gradient(135deg, #00D9FF, #00eeff, #ffffff);
+    background: linear-gradient(135deg, var(--clg-primary), var(--clg-primary-light), #ffffff);
     -webkit-background-clip: text;
     background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -1082,7 +1082,7 @@ body::after {
 .input-group i {
     position: absolute;
     left: 15px;
-    color: #00D9FF;
+    color: var(--clg-primary);
     font-size: 18px;
     z-index: 1;
 }
@@ -1111,7 +1111,7 @@ body::after {
 
 .gate-button {
     padding: 15px 30px;
-    background: linear-gradient(135deg, #00D9FF, #00eeff);
+    background: linear-gradient(135deg, var(--clg-primary), var(--clg-primary-light));
     border: none;
     border-radius: 15px;
     color: #0f1117;
