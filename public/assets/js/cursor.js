@@ -1,4 +1,4 @@
-// Custom Cursor
+// Custom Cursor - Fixed positioning
 document.addEventListener('DOMContentLoaded', () => {
     const cursor = document.createElement('div');
     cursor.className = 'custom-cursor';
@@ -16,13 +16,15 @@ document.addEventListener('DOMContentLoaded', () => {
     let dotY = 0;
 
     document.addEventListener('mousemove', (e) => {
+        // Use pageX/pageY for scroll-aware positioning
         mouseX = e.clientX;
         mouseY = e.clientY;
         
         // Instant dot movement
-        dotX = mouseX - 3;
-        dotY = mouseY - 3;
-        cursorDot.style.transform = `translate(${dotX}px, ${dotY}px)`;
+        dotX = mouseX;
+        dotY = mouseY;
+        cursorDot.style.left = `${dotX}px`;
+        cursorDot.style.top = `${dotY}px`;
     });
 
     // Smooth cursor follow
@@ -33,34 +35,33 @@ document.addEventListener('DOMContentLoaded', () => {
         cursorX += diffX * 0.15;
         cursorY += diffY * 0.15;
         
-        cursor.style.transform = `translate(${cursorX - 10}px, ${cursorY - 10}px)`;
+        cursor.style.left = `${cursorX}px`;
+        cursor.style.top = `${cursorY}px`;
         
         requestAnimationFrame(animate);
     }
     animate();
 
-    // Hover effects
-    const hoverElements = document.querySelectorAll('a, button, input, .app-card, .game-card, [onclick]');
-    
-    hoverElements.forEach(el => {
-        el.addEventListener('mouseenter', () => {
+    // Hover effects - use event delegation for dynamic elements
+    document.addEventListener('mouseover', (e) => {
+        if (e.target.matches('a, button, input, textarea, select, .app-card, .game-card, [onclick], .nav-buttons a')) {
             cursor.classList.add('hover');
-        });
-        
-        el.addEventListener('mouseleave', () => {
+        }
+    });
+    
+    document.addEventListener('mouseout', (e) => {
+        if (e.target.matches('a, button, input, textarea, select, .app-card, .game-card, [onclick], .nav-buttons a')) {
             cursor.classList.remove('hover');
-        });
+        }
     });
 
     // Click effect
     document.addEventListener('mousedown', () => {
         cursor.classList.add('click');
-        cursorDot.style.transform = `translate(${dotX}px, ${dotY}px) scale(1.5)`;
     });
 
     document.addEventListener('mouseup', () => {
         cursor.classList.remove('click');
-        cursorDot.style.transform = `translate(${dotX}px, ${dotY}px) scale(1)`;
     });
 
     // Hide cursor when leaving window
