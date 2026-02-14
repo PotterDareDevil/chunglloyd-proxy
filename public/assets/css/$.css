@@ -1,6 +1,52 @@
 /* CLG Brand - Space Grotesk Font Import */
 @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap');
 
+/* Custom Smooth Cursor */
+* {
+    cursor: none !important;
+}
+
+body {
+    cursor: none;
+}
+
+/* Custom Cursor */
+.custom-cursor {
+    width: 20px;
+    height: 20px;
+    border: 2px solid #00D9FF;
+    border-radius: 50%;
+    position: fixed;
+    pointer-events: none;
+    z-index: 99999;
+    transition: all 0.15s ease;
+    transition-property: background, transform, border-color;
+    mix-blend-mode: difference;
+}
+
+.custom-cursor-dot {
+    width: 6px;
+    height: 6px;
+    background-color: #00D9FF;
+    border-radius: 50%;
+    position: fixed;
+    pointer-events: none;
+    z-index: 100000;
+    transition: transform 0.1s ease;
+    box-shadow: 0 0 10px rgba(0, 217, 255, 0.8);
+}
+
+.custom-cursor.hover {
+    background-color: rgba(0, 217, 255, 0.2);
+    transform: scale(1.5);
+    border-color: #00eeff;
+}
+
+.custom-cursor.click {
+    transform: scale(0.8);
+    background-color: rgba(0, 217, 255, 0.4);
+}
+
 body {
     font-family: 'Space Grotesk', sans-serif;
     background-color: #0f1117;
@@ -78,20 +124,21 @@ body::after {
     border-left-color: #00D9FF !important;
 }
 
-/* Fixed: Navbar Brand Text with Proper Spacing */
+/* Fixed: Navbar Brand Text - Smaller Size */
 #waves {
-    font-size: 16px;
+    font-size: 15px;
     color: #00D9FF;
     display: inline-block;
     text-align: left;
-    margin: 1px 20px 0 10px;
+    margin: 1px 15px 0 5px;
     white-space: nowrap;
-    cursor: default;
+    cursor: none;
     transition: all 0.3s ease;
     font-weight: 600;
     text-shadow: 0 0 20px rgba(0, 217, 255, 0.5);
     flex-shrink: 0;
 }
+
 
 /* Fixed: Glassmorphism Navbar with Proper Sizing */
 .home-navbar {
