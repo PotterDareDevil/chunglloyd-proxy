@@ -217,16 +217,21 @@ document.addEventListener('DOMContentLoaded', () => {
 	}
 	window.handleSearch = handleSearch
 	function generateSearchUrl(query) {
-		try {
-			return new URL(query).toString()
-		} catch {
-			try {
-				const u = new URL(`https://${query}`)
-				if (u.hostname.includes('.')) return u.toString()
-			} catch {}
-		}
-		return `https://duckduckgo.com/?q=${encodeURIComponent(query)}&ia=web`
-	}
+    try {
+        return new URL(query).toString();
+    } catch {
+        try {
+            const u = new URL(`https://${query}`);
+            if (u.hostname.includes('.')) return u.toString();
+        } catch {}
+    }
+    // Use selected search engine from features.js
+    if (window.getSearchEngineUrl) {
+        return window.getSearchEngineUrl(query);
+    }
+    return `https://duckduckgo.com/?q=${encodeURIComponent(query)}&ia=web`;
+}
+
 	function showToast(message, type = 'success', iconType = 'check') {
 		const toast = document.createElement('div')
 		toast.className = `toast show ${type}`
