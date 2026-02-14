@@ -28,11 +28,11 @@
       <script src="/assets/js/eruda.js" defer></script>
       <script src="/assets/js/register.js" defer></script>
       <script src="/assets/js/settings.js" defer></script>
-      <script src="/assets/js/cursor.js" defer></script>
       <script src="/assets/js/ping.js" defer></script>
       <script src="/assets/js/greetings.js" defer></script>
       <script src="/assets/js/shortcuts.js" defer></script>
       <script src="/assets/js/$.js" defer></script>
+      <script src="/assets/js/cursor.js" defer></script>
       <div class="relative flex flex-col h-[100vh] items-center justify-center bg-white transition-bg">
          <div class="absolute inset-0 overflow-hidden">
             <div class="god-rays absolute -inset-[10px] opacity-50"></div>
@@ -79,6 +79,52 @@
             <span class="shortcut-indicator">Ctrl + S</span>
          </div>
       </div>
+      
+      <!-- Quick Access Cards -->
+      <div class="quick-access-container">
+         <h3>Quick Access</h3>
+         <div class="quick-access-grid">
+            <div class="quick-card" onclick="handleSearch('https://google.com')">
+               <i class="fa-brands fa-google"></i>
+               <span>Google</span>
+            </div>
+            <div class="quick-card" onclick="handleSearch('https://youtube.com')">
+               <i class="fa-brands fa-youtube"></i>
+               <span>YouTube</span>
+            </div>
+            <div class="quick-card" onclick="handleSearch('https://discord.com')">
+               <i class="fa-brands fa-discord"></i>
+               <span>Discord</span>
+            </div>
+            <div class="quick-card" onclick="handleSearch('https://reddit.com')">
+               <i class="fa-brands fa-reddit"></i>
+               <span>Reddit</span>
+            </div>
+            <div class="quick-card" onclick="handleSearch('https://github.com')">
+               <i class="fa-brands fa-github"></i>
+               <span>GitHub</span>
+            </div>
+            <div class="quick-card" onclick="handleSearch('https://twitch.tv')">
+               <i class="fa-brands fa-twitch"></i>
+               <span>Twitch</span>
+            </div>
+         </div>
+      </div>
+
+      <!-- CLG Footer -->
+      <footer class="clg-footer">
+         <p>© 2026 chunglloyd.xyc | CLG Proxy</p>
+         <div class="footer-links">
+            <a href="https://github.com/PotterDareDevil" target="_blank" class="hover-link">
+               <i class="fa-brands fa-github"></i> GitHub
+            </a>
+            <span class="footer-divider">|</span>
+            <a href="#" class="hover-link">Privacy</a>
+            <span class="footer-divider">|</span>
+            <a href="#" class="hover-link">v2.3.5</a>
+         </div>
+      </footer>
+
       <div id="erudaLoadingScreen" style="display: none;">Eruda is loading...</div>
       <div id="overlay" class="overlay"></div>
       <div id="namePrompt" class="popup">
