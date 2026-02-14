@@ -3,13 +3,14 @@ document.addEventListener('DOMContentLoaded', function () {
 	NProgress.start();
 });
   
-  window.addEventListener('load', function () {
+window.addEventListener('load', function () {
 	NProgress.done();
 });
   
 const titleElement = document.querySelector('.search-title');
 if (titleElement) {
-	const text = titleElement.textContent;
+	// Force the text to be "Chunglloyd Proxy." with space
+	const text = "Chunglloyd Proxy.";
 	titleElement.innerHTML = '';
 
 	text.split('').forEach((letter, index) => {
