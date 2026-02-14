@@ -966,3 +966,201 @@ body::after {
         padding: 15px;
     }
 }
+
+/* CLG Password Gate */
+.password-gate {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: linear-gradient(135deg, #0f1117 0%, #1a1d29 50%, #0f1117 100%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999999;
+    animation: fadeIn 0.5s ease;
+}
+
+.password-gate.unlocked {
+    animation: fadeOut 0.5s ease forwards;
+    pointer-events: none;
+}
+
+.password-container {
+    background: rgba(26, 29, 41, 0.85);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(0, 217, 255, 0.3);
+    border-radius: 25px;
+    padding: 40px 50px;
+    text-align: center;
+    box-shadow: 0 8px 32px 0 rgba(0, 217, 255, 0.3);
+    min-width: 400px;
+    animation: slideUp 0.6s ease;
+}
+
+.password-header {
+    margin-bottom: 30px;
+}
+
+.clifford-mascot {
+    width: 120px;
+    height: 120px;
+    margin-bottom: 20px;
+    border-radius: 50%;
+    border: 3px solid #00D9FF;
+    box-shadow: 0 0 30px rgba(0, 217, 255, 0.5);
+    animation: float 3s ease-in-out infinite;
+}
+
+@keyframes float {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-10px); }
+}
+
+.password-header h1 {
+    font-size: 42px;
+    font-weight: 700;
+    background: linear-gradient(135deg, #00D9FF, #00eeff, #ffffff);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin: 0 0 10px 0;
+    filter: drop-shadow(0 0 20px rgba(0, 217, 255, 0.4));
+}
+
+.password-header p {
+    color: #b3b3b3;
+    font-size: 16px;
+    margin: 0;
+}
+
+.password-form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.input-group {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.input-group i {
+    position: absolute;
+    left: 15px;
+    color: #00D9FF;
+    font-size: 18px;
+    z-index: 1;
+}
+
+.input-group input {
+    width: 100%;
+    padding: 15px 15px 15px 45px;
+    background: rgba(15, 17, 23, 0.8);
+    border: 1px solid rgba(0, 217, 255, 0.2);
+    border-radius: 15px;
+    color: #e0e0e0;
+    font-size: 16px;
+    font-family: 'Space Grotesk', sans-serif;
+    outline: none;
+    transition: all 0.3s ease;
+}
+
+.input-group input:focus {
+    border-color: rgba(0, 217, 255, 0.6);
+    box-shadow: 0 0 20px rgba(0, 217, 255, 0.3);
+}
+
+.input-group input::placeholder {
+    color: #b3b3b3;
+}
+
+.gate-button {
+    padding: 15px 30px;
+    background: linear-gradient(135deg, #00D9FF, #00eeff);
+    border: none;
+    border-radius: 15px;
+    color: #0f1117;
+    font-size: 18px;
+    font-weight: 700;
+    font-family: 'Space Grotesk', sans-serif;
+    cursor: none;
+    transition: all 0.3s ease;
+    margin-top: 10px;
+    box-shadow: 0 4px 15px rgba(0, 217, 255, 0.4);
+}
+
+.gate-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 25px rgba(0, 217, 255, 0.6);
+}
+
+.gate-button:active {
+    transform: translateY(0px);
+}
+
+.password-hint {
+    font-size: 13px;
+    color: #b3b3b3;
+    margin: 5px 0 0 0;
+    font-style: italic;
+}
+
+.password-error {
+    color: #ff4444;
+    font-size: 14px;
+    margin-top: 15px;
+    min-height: 20px;
+    font-weight: 600;
+}
+
+@keyframes slideUp {
+    0% {
+        opacity: 0;
+        transform: translateY(50px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeOut {
+    0% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+    }
+}
+
+/* Hide main content until unlocked */
+body.locked .home-navbar,
+body.locked .navbar,
+body.locked .search-container,
+body.locked .quick-access-container,
+body.locked .clg-footer,
+body.locked #namePrompt,
+body.locked #pingDisplay,
+body.locked #greeting {
+    display: none !important;
+}
+
+@media (max-width: 768px) {
+    .password-container {
+        min-width: 90%;
+        padding: 30px 25px;
+    }
+    
+    .clifford-mascot {
+        width: 100px;
+        height: 100px;
+    }
+    
+    .password-header h1 {
+        font-size: 32px;
+    }
+}
