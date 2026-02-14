@@ -216,21 +216,22 @@ document.addEventListener('DOMContentLoaded', () => {
 		}
 	}
 	window.handleSearch = handleSearch
+	
 	function generateSearchUrl(query) {
-    try {
-        return new URL(query).toString();
-    } catch {
-        try {
-            const u = new URL(`https://${query}`);
-            if (u.hostname.includes('.')) return u.toString();
-        } catch {}
-    }
-    // Use selected search engine from features.js
-    if (window.getSearchEngineUrl) {
-        return window.getSearchEngineUrl(query);
-    }
-    return `https://duckduckgo.com/?q=${encodeURIComponent(query)}&ia=web`;
-}
+		try {
+			return new URL(query).toString();
+		} catch {
+			try {
+				const u = new URL(`https://${query}`);
+				if (u.hostname.includes('.')) return u.toString();
+			} catch {}
+		}
+		// Use selected search engine from features.js
+		if (window.getSearchEngineUrl) {
+			return window.getSearchEngineUrl(query);
+		}
+		return `https://duckduckgo.com/?q=${encodeURIComponent(query)}&ia=web`;
+	}
 
 	function showToast(message, type = 'success', iconType = 'check') {
 		const toast = document.createElement('div')
@@ -261,6 +262,7 @@ document.addEventListener('DOMContentLoaded', () => {
 			setTimeout(() => toast.remove(), 500)
 		}, 3000)
 	}
+	
 	function preloadResources(url) {
 		if (!url) return
 		try {
@@ -272,14 +274,17 @@ document.addEventListener('DOMContentLoaded', () => {
 			document.head.appendChild(link)
 		} catch {}
 	}
+	
 	function getUrl(url) {
 		return Promise.resolve(__uv$config.prefix + __uv$config.encodeUrl(url))
 	}
+	
 	function generateSubject() {
 		const subjects = ['math', 'science', 'history', 'art', 'programming', 'philosophy']
 		const random = subjects[Math.floor(Math.random() * subjects.length)]
 		history.replaceState({}, '', '/learning?subject=' + random)
 	}
+	
 	function decodeUrl(enc) {
 		try {
 			const o = new URL(enc, window.location.origin)
@@ -291,8 +296,55 @@ document.addEventListener('DOMContentLoaded', () => {
 		} catch {}
 		return enc
 	}
+	
+	// Bookmark current page button
+	const bookmarkBtn = document.getElementById('bookmarkCurrentPage');
+	if (bookmarkBtn) {
+		bookmarkBtn.addEventListener('click', (e) => {
+			e.preventDefault();
+			
+			if (!iframe || iframe.style.display === 'none') {
+				showToast('No page to bookmark', 'error', 'warning');
+				return;
+			}
+			
+			try {
+				const currentUrl = iframe.src;
+				if (!currentUrl || currentUrl === 'about:blank') {
+					showToast('No page to bookmark', 'error', 'warning');
+					return;
+				}
+				
+				// Decode the URL if it's proxied
+				const decodedUrl = decodeUrl(currentUrl);
+				
+				if (window.bookmarksManager && window.bookmarksManager.isBookmarked(decodedUrl)) {
+					showToast('Already bookmarked!', 'info', 'info');
+					return;
+				}
+				
+				const name = prompt('Bookmark name:', decodedUrl.substring(0, 50));
+				if (name) {
+					if (window.bookmarksManager) {
+						window.bookmarksManager.addBookmark(name, decodedUrl);
+						showToast('Bookmarked!', 'success', 'check');
+						bookmarkBtn.querySelector('i').classList.add('fa-solid');
+						setTimeout(() => {
+							bookmarkBtn.querySelector('i').classList.remove('fa-solid');
+						}, 2000);
+					}
+				}
+			} catch (err) {
+				console.error('Bookmark error:', err);
+				showToast('Could not bookmark page', 'error', 'warning');
+			}
+		});
+	}
+	
+	// Export functions globally
 	window.decodeUrl = decodeUrl
 	window.addToHistory = addToHistory
 	window.updateDecodedSearchInput = updateDecodedSearchInput
 	window.normalizeUrl = normalizeUrl
+	window.showToast = showToast
 })
