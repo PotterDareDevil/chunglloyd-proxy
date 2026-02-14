@@ -825,3 +825,144 @@ body::after {
         transform: rotate(360deg);
     }
 }
+
+/* Quick Access Cards */
+.quick-access-container {
+    position: fixed;
+    bottom: 100px;
+    left: 50%;
+    transform: translateX(-50%);
+    text-align: center;
+    z-index: 5;
+    animation: fadeIn 2s ease;
+}
+
+.quick-access-container h3 {
+    color: #b3b3b3;
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 15px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+.quick-access-grid {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.quick-card {
+    background: rgba(26, 29, 41, 0.6);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(0, 217, 255, 0.2);
+    border-radius: 15px;
+    padding: 15px 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    cursor: none;
+    transition: all 0.3s ease;
+    min-width: 80px;
+}
+
+.quick-card:hover {
+    background: rgba(26, 29, 41, 0.85);
+    border-color: rgba(0, 217, 255, 0.6);
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0, 217, 255, 0.3);
+}
+
+.quick-card i {
+    font-size: 28px;
+    color: #00D9FF;
+    transition: all 0.3s ease;
+}
+
+.quick-card:hover i {
+    transform: scale(1.2);
+    text-shadow: 0 0 15px rgba(0, 217, 255, 0.8);
+}
+
+.quick-card span {
+    font-size: 12px;
+    font-weight: 500;
+    color: #e0e0e0;
+}
+
+/* CLG Footer */
+.clg-footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(26, 29, 41, 0.6);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-top: 1px solid rgba(0, 217, 255, 0.2);
+    padding: 15px 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 10;
+    animation: fadeIn 2s ease;
+}
+
+.clg-footer p {
+    margin: 0;
+    color: #b3b3b3;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.footer-links {
+    display: flex;
+    gap: 15px;
+    align-items: center;
+}
+
+.footer-links a {
+    color: #b3b3b3;
+    font-size: 14px;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.footer-links a:hover {
+    color: #00D9FF;
+}
+
+.footer-divider {
+    color: rgba(0, 217, 255, 0.3);
+}
+
+/* Hide footer and quick access when iframe is active */
+.iframe:not([style*="display: none"]) ~ .clg-footer,
+.iframe:not([style*="display: none"]) ~ .quick-access-container {
+    display: none;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .quick-access-container {
+        bottom: 80px;
+    }
+    
+    .quick-access-grid {
+        gap: 10px;
+    }
+    
+    .quick-card {
+        min-width: 70px;
+        padding: 12px 15px;
+    }
+    
+    .clg-footer {
+        flex-direction: column;
+        gap: 10px;
+        padding: 15px;
+    }
+}
