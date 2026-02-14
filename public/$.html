@@ -20,6 +20,31 @@
       <script type='text/javascript' src='//pl26200262.effectiveratecpm.com/f0/e8/15/f0e81559842363ebf19aa99900ff2d02.js'></script>  
    </head>
    <body>
+       <!-- CLG Password Gate -->
+   <div id="password-gate" class="password-gate">
+      <div class="password-container">
+         <div class="password-header">
+            <img src="/clg-bunny.png" alt="Clifford" class="clifford-mascot">
+            <h1>CLG Proxy</h1>
+            <p>Enter credentials to continue</p>
+         </div>
+         <div class="password-form">
+            <div class="input-group">
+               <i class="fa-regular fa-user"></i>
+               <input type="text" id="gate-username" placeholder="Username" autocomplete="off">
+            </div>
+            <div class="input-group">
+               <i class="fa-regular fa-lock"></i>
+               <input type="password" id="gate-password" placeholder="Password" autocomplete="off">
+            </div>
+            <button id="gate-submit" class="gate-button">
+               <i class="fa-regular fa-arrow-right"></i> Enter
+            </button>
+            <p class="password-hint">Hint: Clifford's year 🐰</p>
+         </div>
+         <div class="password-error" id="gate-error"></div>
+      </div>
+   </div>
       <script src="/baremux/index.js"></script>
       <script src="/wah/uv.bundle.js" defer></script>
       <script src="/wah/cute1.js" defer></script>
