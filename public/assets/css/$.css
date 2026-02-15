@@ -10,7 +10,6 @@
     --particles-opacity: 1;
 }
 
-
 /* Theme variations */
 body[data-theme="purple"] {
     --clg-primary: #a855f7;
@@ -44,7 +43,9 @@ body {
 
 /* Allow normal cursor inside iframe and its content */
 iframe,
-iframe * {
+iframe *,
+#cool-iframe,
+#cool-iframe * {
     cursor: auto !important;
 }
 
@@ -80,15 +81,6 @@ iframe * {
     background-color: #ffffff;
     box-shadow: 0 0 25px rgba(0, 217, 255, 1), 0 0 50px rgba(0, 217, 255, 0.8);
 }
-
-/* Hide custom cursor when hovering over iframe */
-body:has(.iframe:hover) .custom-cursor-dot {
-    opacity: 0;
-}
-
-
-
-
 
 body {
     font-family: 'Space Grotesk', sans-serif;
@@ -181,7 +173,6 @@ body::after {
     text-shadow: 0 0 20px var(--clg-shadow);
     flex-shrink: 0;
 }
-
 
 /* Fixed: Glassmorphism Navbar with Proper Sizing */
 .home-navbar {
@@ -289,7 +280,7 @@ body::after {
     -webkit-backdrop-filter: blur(15px);
     border: 1px solid rgba(0, 217, 255, 0.25);
     left: 50%;
-    width: 1300px; /* Changed from 1180px to 1300px */
+    width: 1300px;
     max-width: 95%;
     display: none;
     border-radius: 25px;
@@ -301,7 +292,6 @@ body::after {
     transform: translateX(-50%);
     box-shadow: 0 8px 32px 0 rgba(0, 217, 255, 0.2);
 }
-
 
 .navbar ul,
 .nav-buttons {
@@ -366,9 +356,8 @@ body::after {
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 750px; /* Changed from 700px */
+    width: 750px;
 }
-
 
 .small-searchbar input[type=text] {
     padding: 14px;
@@ -571,12 +560,6 @@ body::after {
     height: 100vh;
     background-color: #0f1117;
     border: none;
-    pointer-events: auto; /* Allow clicking */
-}
-
-/* Show default cursor inside iframe since custom cursor can't reach in */
-.iframe:hover ~ .custom-cursor-dot {
-    display: block; /* Keep showing cursor */
 }
 
 .hover-link {
@@ -694,7 +677,7 @@ body::after {
 }
 
 .input-wrapper::before {
-    content: "\f007";
+    content: "\\f007";
     font-family: "Font Awesome 6 Pro";
     font-weight: 400;
     position: absolute;
