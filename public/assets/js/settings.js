@@ -1,4 +1,11 @@
+// ===============================================
+// CLG SETTINGS SYSTEM
+// ===============================================
+
 document.addEventListener('DOMContentLoaded', function() {
+	// ===============================================
+	// SETTINGS MENU HTML STRUCTURE
+	// ===============================================
 	const settingsMenu = document.getElementById('settings-menu');
 	settingsMenu.innerHTML = `
   <h2>Settings</h2>
@@ -8,6 +15,8 @@ document.addEventListener('DOMContentLoaded', function() {
     <button class="tab-button" id="appearance-tab"><i class="fa-regular fa-palette"></i> Appearance</button>
     <button class="tab-button" id="features-tab"><i class="fa-regular fa-stars"></i> Features</button>
   </div>
+  
+  <!-- ========== PROXY TAB ========== -->
   <div id="proxy-content" class="tab-content active">
     <label for="transport-selector">Transport</label>
     <p>Transport is how the proxy will send information.</p>
@@ -24,12 +33,17 @@ document.addEventListener('DOMContentLoaded', function() {
     <input type="text" id="wisp-server" placeholder="Wisp Server URL Here..." autocomplete="off">
     <button id="save-wisp-url">Save</button>
   </div>
+  
+  <!-- ========== CLOAK TAB ========== -->
   <div id="cloak-content" class="tab-content">
     <label for="aboutblank-toggle">About:Blank</label>
     <p>Turn this on to go into about:blank every time the page loads (Recommended).</p>
     <input type="checkbox" id="aboutblank-toggle">
   </div>
+  
+  <!-- ========== APPEARANCE TAB ========== -->
   <div id="appearance-content" class="tab-content">
+    <!-- UI Scale -->
     <div class="scale-container">
         <label for="ui-scale-slider">UI Scale</label>
         <p>Adjust the size of the entire interface (50% - 200%)</p>
@@ -39,6 +53,8 @@ document.addEventListener('DOMContentLoaded', function() {
             <button class="scale-reset" id="scale-reset">Reset</button>
         </div>
     </div>
+    
+    <!-- Theme Selector -->
     <label for="theme-selector">Theme</label>
     <p>Choose your color scheme</p>
     <div class="theme-selector">
@@ -59,13 +75,58 @@ document.addEventListener('DOMContentLoaded', function() {
         <span>Green</span>
       </div>
     </div>
+    
+    <!-- Background Customizer -->
+    <label for="background-selector">Background</label>
+    <p>Customize your background</p>
+    <div class="background-grid" id="background-grid"></div>
+    <button id="upload-bg-btn" class="feature-button">
+        <i class="fa-regular fa-upload"></i> Upload Custom Image
+    </button>
+    <input type="file" id="bg-file-input" accept="image/*" style="display: none;">
+    
+    <div class="slider-group">
+        <label>Background Opacity</label>
+        <input type="range" id="bg-opacity-slider" min="0" max="1" step="0.1" value="1">
+        <span id="bg-opacity-value">100%</span>
+    </div>
+    
+    <div class="slider-group">
+        <label>Background Blur</label>
+        <input type="range" id="bg-blur-slider" min="0" max="20" step="1" value="0">
+        <span id="bg-blur-value">0px</span>
+    </div>
+    
+    <!-- Particle Customizer -->
     <label for="particles-toggle">Background Particles</label>
     <p>Toggle floating particle effects</p>
     <input type="checkbox" id="particles-toggle" checked>
+    
+    <label>Particle Shape</label>
+    <div class="particle-shapes" id="particle-shapes"></div>
+    
+    <label>Particle Color</label>
+    <div class="particle-colors" id="particle-colors"></div>
+    
+    <div class="slider-group">
+        <label>Particle Density</label>
+        <input type="range" id="particle-density-slider" min="1" max="5" step="1" value="3">
+        <span id="particle-density-value">3</span>
+    </div>
+    
+    <div class="slider-group">
+        <label>Particle Speed</label>
+        <input type="range" id="particle-speed-slider" min="0.5" max="2" step="0.1" value="1">
+        <span id="particle-speed-value">1x</span>
+    </div>
+    
+    <!-- Navigation Bar Toggle -->
     <label for="navbar-toggle">Navigation Bar</label>
     <p>Keep this on for the navigation bar when searching (Recommended).</p>
     <input type="checkbox" id="navbar-toggle">
   </div>
+  
+  <!-- ========== FEATURES TAB ========== -->
   <div id="features-content" class="tab-content">
     <label for="search-engine-selector">Default Search Engine</label>
     <p>Choose which search engine to use</p>
@@ -93,9 +154,13 @@ document.addEventListener('DOMContentLoaded', function() {
       <i class="fa-regular fa-bookmark"></i> Manage Bookmarks
     </button>
   </div>
+  
   <button id="close-settings"><i class="fa-regular fa-times"></i></button>
   `;
 	
+	// ===============================================
+	// ELEMENT REFERENCES
+	// ===============================================
 	const settingsIcon = document.getElementById('settings-icon');
 	const closeSettingsButton = document.getElementById('close-settings');
 	const saveButton = document.getElementById('save-wisp-url');
@@ -108,7 +173,9 @@ document.addEventListener('DOMContentLoaded', function() {
 	const wispInput = document.querySelector("#wisp-server");
 	wispInput.value = currentWispUrl;
 
-	// UI Scale Feature
+	// ===============================================
+	// UI SCALE FEATURE
+	// ===============================================
 	const uiScaleSlider = document.getElementById('ui-scale-slider');
 	const scaleValue = document.getElementById('scale-value');
 	const scaleReset = document.getElementById('scale-reset');
@@ -144,7 +211,9 @@ document.addEventListener('DOMContentLoaded', function() {
 		document.body.style.zoom = scaleDecimal;
 	}
 
-	// Theme Selector
+	// ===============================================
+	// THEME SELECTOR
+	// ===============================================
 	const themeOptions = document.querySelectorAll('.theme-option');
 	const savedTheme = localStorage.getItem('clgTheme') || 'teal';
 	
@@ -166,18 +235,9 @@ document.addEventListener('DOMContentLoaded', function() {
 	// Apply saved theme on load
 	applyTheme(savedTheme);
 
-	// Particles Toggle
-	const particlesToggle = document.getElementById('particles-toggle');
-	const particlesEnabled = localStorage.getItem('particlesEnabled') !== 'false';
-	particlesToggle.checked = particlesEnabled;
-	
-	particlesToggle.addEventListener('change', () => {
-		localStorage.setItem('particlesEnabled', particlesToggle.checked);
-		toggleParticles(particlesToggle.checked);
-		showToast(particlesToggle.checked ? 'success' : 'error', `Particles ${particlesToggle.checked ? 'enabled' : 'disabled'}`);
-	});
-
-	// Search Engine Selector
+	// ===============================================
+	// SEARCH ENGINE SELECTOR
+	// ===============================================
 	const searchEngineSelector = document.querySelector('.search-engine-selector');
 	const searchSelected = searchEngineSelector.querySelector('.search-selected');
 	const searchOptions = searchEngineSelector.querySelector('.search-options');
@@ -207,7 +267,9 @@ document.addEventListener('DOMContentLoaded', function() {
 		});
 	});
 
-	// History Toggle
+	// ===============================================
+	// HISTORY MANAGEMENT
+	// ===============================================
 	const historyToggle = document.getElementById('history-toggle');
 	const historyEnabled = localStorage.getItem('historyEnabled') !== 'false';
 	historyToggle.checked = historyEnabled;
@@ -217,7 +279,6 @@ document.addEventListener('DOMContentLoaded', function() {
 		showToast(historyToggle.checked ? 'success' : 'error', `History ${historyToggle.checked ? 'enabled' : 'disabled'}`);
 	});
 
-	// Clear History Button
 	document.getElementById('clear-history-btn').addEventListener('click', () => {
 		if (confirm('Are you sure you want to clear your browsing history?')) {
 			localStorage.removeItem('proxyHistory');
@@ -225,16 +286,20 @@ document.addEventListener('DOMContentLoaded', function() {
 		}
 	});
 
-	// View History Button
 	document.getElementById('view-history-btn').addEventListener('click', () => {
 		showHistoryModal();
 	});
 
-	// Manage Bookmarks Button
+	// ===============================================
+	// BOOKMARKS MANAGEMENT
+	// ===============================================
 	document.getElementById('manage-bookmarks-btn').addEventListener('click', () => {
 		showBookmarksModal();
 	});
 
+	// ===============================================
+	// WISP SERVER MANAGEMENT
+	// ===============================================
 	function isValidUrl(url) {
 		try {
 			const parsedUrl = new URL(url);
@@ -268,7 +333,10 @@ document.addEventListener('DOMContentLoaded', function() {
 		const customUrl = wispInput.value.trim();
 		updateWispServerUrl(customUrl);
 	});
-	
+
+	// ===============================================
+	// SETTINGS MENU TOGGLE
+	// ===============================================
 	settingsIcon.addEventListener('click', (event) => {
 		event.preventDefault();
 		toggleSettingsMenu();
@@ -296,7 +364,10 @@ document.addEventListener('DOMContentLoaded', function() {
 		  }, 300);
 		}
 	}
-	
+
+	// ===============================================
+	// TRANSPORT SELECTOR
+	// ===============================================
 	transportSelected.addEventListener('click', function(e) {
 		e.stopPropagation();
 		transportOptions.classList.toggle('transport-show');
@@ -321,8 +392,10 @@ document.addEventListener('DOMContentLoaded', function() {
 		});
 	}
 
+	// ===============================================
+	// TAB SWITCHING
+	// ===============================================
 	function switchTab(tabId, contentId, ...otherTabs) {
-		// Hide all other tabs
 		for (let i = 0; i < otherTabs.length; i += 2) {
 			document.getElementById(otherTabs[i + 1]).classList.remove('active');
 			document.getElementById(otherTabs[i]).classList.remove('active');
@@ -343,7 +416,10 @@ document.addEventListener('DOMContentLoaded', function() {
 	document.getElementById('features-tab').addEventListener('click', function() {
 		switchTab('features-tab', 'features-content', 'proxy-tab', 'proxy-content', 'appearance-tab', 'appearance-content', 'cloak-tab', 'cloak-content');
 	});
-	
+
+	// ===============================================
+	// NAVBAR TOGGLE
+	// ===============================================
 	navbarToggle.addEventListener('change', function() {
 		if (this.checked) {
 			showToast('success', 'Navigation Bar is now enabled.');
@@ -352,6 +428,9 @@ document.addEventListener('DOMContentLoaded', function() {
 		}
 	});
 
+	// ===============================================
+	// ABOUT:BLANK FUNCTIONALITY
+	// ===============================================
 	function runScriptIfChecked() {
 		let inFrame;
 		try {
@@ -399,6 +478,9 @@ document.addEventListener('DOMContentLoaded', function() {
 		runScriptIfChecked();
 	});
 
+	// ===============================================
+	// TOAST NOTIFICATION SYSTEM
+	// ===============================================
 	function showToast(type, message) {
 		const toast = document.createElement('div');
 		toast.className = `toast ${type} show`;
@@ -435,4 +517,183 @@ document.addEventListener('DOMContentLoaded', function() {
 	}
 
 	window.showToast = showToast;
+
+	// ===============================================
+	// BACKGROUND MANAGER INTEGRATION
+	// ===============================================
+	setTimeout(() => {
+		if (window.backgroundManager) {
+			setupBackgroundControls();
+		}
+		if (window.particleCustomizer) {
+			setupParticleControls();
+		}
+	}, 1000);
 });
+
+// ===============================================
+// BACKGROUND CONTROLS SETUP
+// ===============================================
+function setupBackgroundControls() {
+	const bgGrid = document.getElementById('background-grid');
+	const uploadBtn = document.getElementById('upload-bg-btn');
+	const fileInput = document.getElementById('bg-file-input');
+	const opacitySlider = document.getElementById('bg-opacity-slider');
+	const opacityValue = document.getElementById('bg-opacity-value');
+	const blurSlider = document.getElementById('bg-blur-slider');
+	const blurValue = document.getElementById('bg-blur-value');
+
+	if (!bgGrid) return;
+
+	// Populate background presets
+	const presets = window.backgroundManager.getAllPresets();
+	bgGrid.innerHTML = presets.map(preset => `
+		<div class="bg-option ${preset.id === window.backgroundManager.currentBg ? 'active' : ''}" 
+			 data-bg="${preset.id}">
+			<div class="bg-preview bg-${preset.id}"></div>
+			<span>${preset.name}</span>
+		</div>
+	`).join('');
+
+	// Background selection
+	bgGrid.querySelectorAll('.bg-option').forEach(option => {
+		option.addEventListener('click', () => {
+			const bg = option.dataset.bg;
+			bgGrid.querySelectorAll('.bg-option').forEach(o => o.classList.remove('active'));
+			option.classList.add('active');
+			window.backgroundManager.setBackground(bg);
+			if (window.showToast) window.showToast('success', 'Background changed!');
+		});
+	});
+
+	// Upload custom background
+	if (uploadBtn && fileInput) {
+		uploadBtn.addEventListener('click', () => fileInput.click());
+		
+		fileInput.addEventListener('change', (e) => {
+			const file = e.target.files[0];
+			if (!file) return;
+			
+			const reader = new FileReader();
+			reader.onload = (event) => {
+				window.backgroundManager.setBackground('custom', event.target.result);
+				bgGrid.querySelectorAll('.bg-option').forEach(o => o.classList.remove('active'));
+				if (window.showToast) window.showToast('success', 'Custom background uploaded!');
+			};
+			reader.readAsDataURL(file);
+		});
+	}
+
+	// Opacity slider
+	if (opacitySlider && opacityValue) {
+		opacitySlider.value = window.backgroundManager.bgOpacity;
+		opacityValue.textContent = Math.round(window.backgroundManager.bgOpacity * 100) + '%';
+		
+		opacitySlider.addEventListener('input', (e) => {
+			const value = e.target.value;
+			opacityValue.textContent = Math.round(value * 100) + '%';
+			window.backgroundManager.setOpacity(value);
+		});
+	}
+
+	// Blur slider
+	if (blurSlider && blurValue) {
+		blurSlider.value = window.backgroundManager.bgBlur;
+		blurValue.textContent = window.backgroundManager.bgBlur + 'px';
+		
+		blurSlider.addEventListener('input', (e) => {
+			const value = e.target.value;
+			blurValue.textContent = value + 'px';
+			window.backgroundManager.setBlur(value);
+		});
+	}
+}
+
+// ===============================================
+// PARTICLE CONTROLS SETUP
+// ===============================================
+function setupParticleControls() {
+	const shapesContainer = document.getElementById('particle-shapes');
+	const colorsContainer = document.getElementById('particle-colors');
+	const densitySlider = document.getElementById('particle-density-slider');
+	const densityValue = document.getElementById('particle-density-value');
+	const speedSlider = document.getElementById('particle-speed-slider');
+	const speedValue = document.getElementById('particle-speed-value');
+	const particlesToggle = document.getElementById('particles-toggle');
+
+	if (!shapesContainer || !colorsContainer) return;
+
+	// Populate shapes
+	const shapes = window.particleCustomizer.getAllShapes();
+	shapesContainer.innerHTML = shapes.map(shape => `
+		<div class="particle-shape-option ${shape.id === window.particleCustomizer.shape ? 'active' : ''}"
+			 data-shape="${shape.id}">
+			<span class="shape-icon">${shape.icon}</span>
+			<span class="shape-name">${shape.name}</span>
+		</div>
+	`).join('');
+
+	// Populate colors
+	const colors = window.particleCustomizer.getAllColors();
+	colorsContainer.innerHTML = colors.map(color => `
+		<div class="particle-color-option ${color.id === window.particleCustomizer.color ? 'active' : ''}"
+			 data-color="${color.id}">
+			<span>${color.name}</span>
+		</div>
+	`).join('');
+
+	// Shape selection
+	shapesContainer.querySelectorAll('.particle-shape-option').forEach(option => {
+		option.addEventListener('click', () => {
+			const shape = option.dataset.shape;
+			shapesContainer.querySelectorAll('.particle-shape-option').forEach(o => o.classList.remove('active'));
+			option.classList.add('active');
+			window.particleCustomizer.setShape(shape);
+			if (window.showToast) window.showToast('success', `Particle shape: ${shape}`);
+		});
+	});
+
+	// Color selection
+	colorsContainer.querySelectorAll('.particle-color-option').forEach(option => {
+		option.addEventListener('click', () => {
+			const color = option.dataset.color;
+			colorsContainer.querySelectorAll('.particle-color-option').forEach(o => o.classList.remove('active'));
+			option.classList.add('active');
+			window.particleCustomizer.setColor(color);
+			if (window.showToast) window.showToast('success', `Particle color: ${color}`);
+		});
+	});
+
+	// Density slider
+	if (densitySlider && densityValue) {
+		densitySlider.value = window.particleCustomizer.density;
+		densityValue.textContent = window.particleCustomizer.density;
+		
+		densitySlider.addEventListener('input', (e) => {
+			const value = e.target.value;
+			densityValue.textContent = value;
+			window.particleCustomizer.setDensity(value);
+		});
+	}
+
+	// Speed slider
+	if (speedSlider && speedValue) {
+		speedSlider.value = window.particleCustomizer.speed;
+		speedValue.textContent = window.particleCustomizer.speed + 'x';
+		
+		speedSlider.addEventListener('input', (e) => {
+			const value = e.target.value;
+			speedValue.textContent = value + 'x';
+			window.particleCustomizer.setSpeed(value);
+		});
+	}
+
+	// Particles toggle
+	if (particlesToggle) {
+		particlesToggle.checked = window.particleCustomizer.enabled;
+		particlesToggle.addEventListener('change', (e) => {
+			window.particleCustomizer.setEnabled(e.target.checked);
+			if (window.showToast) window.showToast(e.target.checked ? 'success' : 'error', `Particles ${e.target.checked ? 'enabled' : 'disabled'}`);
+		});
+	}
+}
