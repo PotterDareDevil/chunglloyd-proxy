@@ -16,143 +16,146 @@ document.addEventListener('DOMContentLoaded', function() {
     <button class="tab-button" id="features-tab"><i class="fa-regular fa-stars"></i> Features</button>
   </div>
   
-  <!-- ========== PROXY TAB ========== -->
-  <div id="proxy-content" class="tab-content active">
-    <label for="transport-selector">Transport</label>
-    <p>Transport is how the proxy will send information.</p>
-    <div class="transport-selector">
-      <div class="transport-selected">Epoxy</div>
-      <div class="transport-options">
-        <div>Epoxy</div>
-        <div>Libcurl</div>
-      </div>
-    </div>
-    <label for="wisp-server">Wisp Server</label>
-    <p>Enter a different Wisp Server to connect to.</p>
-    <p>Recommended to keep this as default.</p>
-    <input type="text" id="wisp-server" placeholder="Wisp Server URL Here..." autocomplete="off">
-    <button id="save-wisp-url">Save</button>
-  </div>
-  
-  <!-- ========== CLOAK TAB ========== -->
-  <div id="cloak-content" class="tab-content">
-    <label for="aboutblank-toggle">About:Blank</label>
-    <p>Turn this on to go into about:blank every time the page loads (Recommended).</p>
-    <input type="checkbox" id="aboutblank-toggle">
-  </div>
-  
-  <!-- ========== APPEARANCE TAB ========== -->
-  <div id="appearance-content" class="tab-content">
-    <!-- UI Scale -->
-    <div class="scale-container">
-        <label for="ui-scale-slider">UI Scale</label>
-        <p>Adjust the size of the entire interface (50% - 200%)</p>
-        <div class="scale-slider-wrapper">
-            <input type="range" id="ui-scale-slider" min="50" max="200" value="100" step="5">
-            <span class="scale-value" id="scale-value">100%</span>
-            <button class="scale-reset" id="scale-reset">Reset</button>
+  <!-- Scrollable Content Wrapper -->
+  <div class="settings-content-wrapper">
+    <!-- ========== PROXY TAB ========== -->
+    <div id="proxy-content" class="tab-content active">
+      <label for="transport-selector">Transport</label>
+      <p>Transport is how the proxy will send information.</p>
+      <div class="transport-selector">
+        <div class="transport-selected">Epoxy</div>
+        <div class="transport-options">
+          <div>Epoxy</div>
+          <div>Libcurl</div>
         </div>
-    </div>
-    
-    <!-- Theme Selector -->
-    <label for="theme-selector">Theme</label>
-    <p>Choose your color scheme</p>
-    <div class="theme-selector">
-      <div class="theme-option active" data-theme="teal">
-        <div class="theme-preview" style="background: linear-gradient(135deg, #00D9FF, #00eeff);"></div>
-        <span>Teal (Default)</span>
       </div>
-      <div class="theme-option" data-theme="purple">
-        <div class="theme-preview" style="background: linear-gradient(135deg, #a855f7, #c084fc);"></div>
-        <span>Purple</span>
+      <label for="wisp-server">Wisp Server</label>
+      <p>Enter a different Wisp Server to connect to.</p>
+      <p>Recommended to keep this as default.</p>
+      <input type="text" id="wisp-server" placeholder="Wisp Server URL Here..." autocomplete="off">
+      <button id="save-wisp-url">Save</button>
+    </div>
+    
+    <!-- ========== CLOAK TAB ========== -->
+    <div id="cloak-content" class="tab-content">
+      <label for="aboutblank-toggle">About:Blank</label>
+      <p>Turn this on to go into about:blank every time the page loads (Recommended).</p>
+      <input type="checkbox" id="aboutblank-toggle">
+    </div>
+    
+    <!-- ========== APPEARANCE TAB ========== -->
+    <div id="appearance-content" class="tab-content">
+      <!-- UI Scale -->
+      <div class="scale-container">
+          <label for="ui-scale-slider">UI Scale</label>
+          <p>Adjust the size of the entire interface (50% - 200%)</p>
+          <div class="scale-slider-wrapper">
+              <input type="range" id="ui-scale-slider" min="50" max="200" value="100" step="5">
+              <span class="scale-value" id="scale-value">100%</span>
+              <button class="scale-reset" id="scale-reset">Reset</button>
+          </div>
       </div>
-      <div class="theme-option" data-theme="red">
-        <div class="theme-preview" style="background: linear-gradient(135deg, #ef4444, #f87171);"></div>
-        <span>Red</span>
+      
+      <!-- Theme Selector -->
+      <label for="theme-selector">Theme</label>
+      <p>Choose your color scheme</p>
+      <div class="theme-selector">
+        <div class="theme-option active" data-theme="teal">
+          <div class="theme-preview" style="background: linear-gradient(135deg, #00D9FF, #00eeff);"></div>
+          <span>Teal (Default)</span>
+        </div>
+        <div class="theme-option" data-theme="purple">
+          <div class="theme-preview" style="background: linear-gradient(135deg, #a855f7, #c084fc);"></div>
+          <span>Purple</span>
+        </div>
+        <div class="theme-option" data-theme="red">
+          <div class="theme-preview" style="background: linear-gradient(135deg, #ef4444, #f87171);"></div>
+          <span>Red</span>
+        </div>
+        <div class="theme-option" data-theme="green">
+          <div class="theme-preview" style="background: linear-gradient(135deg, #10b981, #34d399);"></div>
+          <span>Green</span>
+        </div>
       </div>
-      <div class="theme-option" data-theme="green">
-        <div class="theme-preview" style="background: linear-gradient(135deg, #10b981, #34d399);"></div>
-        <span>Green</span>
+      
+      <!-- Background Customizer -->
+      <label for="background-selector">Background</label>
+      <p>Customize your background</p>
+      <div class="background-grid" id="background-grid"></div>
+      <button id="upload-bg-btn" class="feature-button">
+          <i class="fa-regular fa-upload"></i> Upload Custom Image
+      </button>
+      <input type="file" id="bg-file-input" accept="image/*" style="display: none;">
+      
+      <div class="slider-group">
+          <label>Background Opacity</label>
+          <input type="range" id="bg-opacity-slider" min="0" max="1" step="0.1" value="1">
+          <span id="bg-opacity-value">100%</span>
       </div>
-    </div>
-    
-    <!-- Background Customizer -->
-    <label for="background-selector">Background</label>
-    <p>Customize your background</p>
-    <div class="background-grid" id="background-grid"></div>
-    <button id="upload-bg-btn" class="feature-button">
-        <i class="fa-regular fa-upload"></i> Upload Custom Image
-    </button>
-    <input type="file" id="bg-file-input" accept="image/*" style="display: none;">
-    
-    <div class="slider-group">
-        <label>Background Opacity</label>
-        <input type="range" id="bg-opacity-slider" min="0" max="1" step="0.1" value="1">
-        <span id="bg-opacity-value">100%</span>
-    </div>
-    
-    <div class="slider-group">
-        <label>Background Blur</label>
-        <input type="range" id="bg-blur-slider" min="0" max="20" step="1" value="0">
-        <span id="bg-blur-value">0px</span>
-    </div>
-    
-    <!-- Particle Customizer -->
-    <label for="particles-toggle">Background Particles</label>
-    <p>Toggle floating particle effects</p>
-    <input type="checkbox" id="particles-toggle" checked>
-    
-    <label>Particle Shape</label>
-    <div class="particle-shapes" id="particle-shapes"></div>
-    
-    <label>Particle Color</label>
-    <div class="particle-colors" id="particle-colors"></div>
-    
-    <div class="slider-group">
-        <label>Particle Density</label>
-        <input type="range" id="particle-density-slider" min="1" max="5" step="1" value="3">
-        <span id="particle-density-value">3</span>
-    </div>
-    
-    <div class="slider-group">
-        <label>Particle Speed</label>
-        <input type="range" id="particle-speed-slider" min="0.5" max="2" step="0.1" value="1">
-        <span id="particle-speed-value">1x</span>
-    </div>
-    
-    <!-- Navigation Bar Toggle -->
-    <label for="navbar-toggle">Navigation Bar</label>
-    <p>Keep this on for the navigation bar when searching (Recommended).</p>
-    <input type="checkbox" id="navbar-toggle">
-  </div>
-  
-  <!-- ========== FEATURES TAB ========== -->
-  <div id="features-content" class="tab-content">
-    <label for="search-engine-selector">Default Search Engine</label>
-    <p>Choose which search engine to use</p>
-    <div class="search-engine-selector">
-      <div class="search-selected">DuckDuckGo</div>
-      <div class="search-options">
-        <div data-engine="duckduckgo">DuckDuckGo</div>
-        <div data-engine="google">Google</div>
-        <div data-engine="bing">Bing</div>
-        <div data-engine="brave">Brave Search</div>
+      
+      <div class="slider-group">
+          <label>Background Blur</label>
+          <input type="range" id="bg-blur-slider" min="0" max="20" step="1" value="0">
+          <span id="bg-blur-value">0px</span>
       </div>
+      
+      <!-- Particle Customizer -->
+      <label for="particles-toggle">Background Particles</label>
+      <p>Toggle floating particle effects</p>
+      <input type="checkbox" id="particles-toggle" checked>
+      
+      <label>Particle Shape</label>
+      <div class="particle-shapes" id="particle-shapes"></div>
+      
+      <label>Particle Color</label>
+      <div class="particle-colors" id="particle-colors"></div>
+      
+      <div class="slider-group">
+          <label>Particle Density</label>
+          <input type="range" id="particle-density-slider" min="1" max="5" step="1" value="3">
+          <span id="particle-density-value">3</span>
+      </div>
+      
+      <div class="slider-group">
+          <label>Particle Speed</label>
+          <input type="range" id="particle-speed-slider" min="0.5" max="2" step="0.1" value="1">
+          <span id="particle-speed-value">1x</span>
+      </div>
+      
+      <!-- Navigation Bar Toggle -->
+      <label for="navbar-toggle">Navigation Bar</label>
+      <p>Keep this on for the navigation bar when searching (Recommended).</p>
+      <input type="checkbox" id="navbar-toggle">
     </div>
-    <label for="history-toggle">Browse History</label>
-    <p>Save your browsing history locally</p>
-    <input type="checkbox" id="history-toggle" checked>
-    <button id="clear-history-btn" class="feature-button">
-      <i class="fa-regular fa-trash"></i> Clear History
-    </button>
-    <button id="view-history-btn" class="feature-button">
-      <i class="fa-regular fa-clock"></i> View History
-    </button>
-    <label for="bookmarks-section">Bookmarks</label>
-    <p>Manage your saved sites</p>
-    <button id="manage-bookmarks-btn" class="feature-button">
-      <i class="fa-regular fa-bookmark"></i> Manage Bookmarks
-    </button>
+    
+    <!-- ========== FEATURES TAB ========== -->
+    <div id="features-content" class="tab-content">
+      <label for="search-engine-selector">Default Search Engine</label>
+      <p>Choose which search engine to use</p>
+      <div class="search-engine-selector">
+        <div class="search-selected">DuckDuckGo</div>
+        <div class="search-options">
+          <div data-engine="duckduckgo">DuckDuckGo</div>
+          <div data-engine="google">Google</div>
+          <div data-engine="bing">Bing</div>
+          <div data-engine="brave">Brave Search</div>
+        </div>
+      </div>
+      <label for="history-toggle">Browse History</label>
+      <p>Save your browsing history locally</p>
+      <input type="checkbox" id="history-toggle" checked>
+      <button id="clear-history-btn" class="feature-button">
+        <i class="fa-regular fa-trash"></i> Clear History
+      </button>
+      <button id="view-history-btn" class="feature-button">
+        <i class="fa-regular fa-clock"></i> View History
+      </button>
+      <label for="bookmarks-section">Bookmarks</label>
+      <p>Manage your saved sites</p>
+      <button id="manage-bookmarks-btn" class="feature-button">
+        <i class="fa-regular fa-bookmark"></i> Manage Bookmarks
+      </button>
+    </div>
   </div>
   
   <button id="close-settings"><i class="fa-regular fa-times"></i></button>
