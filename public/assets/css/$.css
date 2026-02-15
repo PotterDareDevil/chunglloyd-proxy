@@ -65,10 +65,11 @@ iframe *,
     left: 0;
     transform: translate(-50%, -50%);
     pointer-events: none;
-    z-index: 9999999;
+    z-index: 999999999; /* Changed from 9999999 to 999999999 */
     transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     box-shadow: 0 0 15px rgba(0, 217, 255, 0.8), 0 0 30px rgba(0, 217, 255, 0.4);
 }
+
 
 .custom-cursor-dot.hover {
     transform: translate(-50%, -50%) scale(1.8);
