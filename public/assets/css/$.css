@@ -51,6 +51,12 @@ body {
     cursor: none;
 }
 
+/* Allow normal cursor inside iframe and its content */
+iframe,
+iframe * {
+    cursor: auto !important;
+}
+
 /* Hide outer cursor, only show dot */
 .custom-cursor {
     display: none;
@@ -83,6 +89,12 @@ body {
     background-color: #ffffff;
     box-shadow: 0 0 25px rgba(0, 217, 255, 1), 0 0 50px rgba(0, 217, 255, 0.8);
 }
+
+/* Hide custom cursor when hovering over iframe */
+body:has(.iframe:hover) .custom-cursor-dot {
+    opacity: 0;
+}
+
 
 
 
@@ -285,7 +297,7 @@ body::after {
     -webkit-backdrop-filter: blur(15px);
     border: 1px solid rgba(0, 217, 255, 0.25);
     left: 50%;
-    width: 1180px;
+    width: 1300px; /* Changed from 1180px to 1300px */
     max-width: 95%;
     display: none;
     border-radius: 25px;
@@ -297,6 +309,7 @@ body::after {
     transform: translateX(-50%);
     box-shadow: 0 8px 32px 0 rgba(0, 217, 255, 0.2);
 }
+
 
 .navbar ul,
 .nav-buttons {
@@ -361,8 +374,9 @@ body::after {
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 700px;
+    width: 750px; /* Changed from 700px */
 }
+
 
 .small-searchbar input[type=text] {
     padding: 14px;
@@ -565,6 +579,12 @@ body::after {
     height: 100vh;
     background-color: #0f1117;
     border: none;
+    pointer-events: auto; /* Allow clicking */
+}
+
+/* Show default cursor inside iframe since custom cursor can't reach in */
+.iframe:hover ~ .custom-cursor-dot {
+    display: block; /* Keep showing cursor */
 }
 
 .hover-link {
