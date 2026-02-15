@@ -3,12 +3,13 @@
 
 /* CLG Theme Variables */
 :root {
-    --clg-primary: var(--clg-primary);
-    --clg-primary-light: var(--clg-primary-light);
+    --clg-primary: #00D9FF;
+    --clg-primary-light: #00eeff;
     --clg-primary-dark: #00c4e6;
-    --clg-shadow: var(--clg-shadow);
+    --clg-shadow: rgba(0, 217, 255, 0.5);
     --particles-opacity: 1;
 }
+
 
 /* Theme variations */
 body[data-theme="purple"] {
