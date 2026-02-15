@@ -2,34 +2,65 @@
 .settings-menu {
     position: fixed;
     font-family: 'Space Grotesk', sans-serif;
-    top: 47%;
+    top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    background: rgba(26, 29, 41, 0.85);
+    background: rgba(26, 29, 41, 0.95);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
     border: 1px solid rgba(0, 217, 255, 0.3);
-    padding: 25px 30px;
-    border-radius: 20px;
-    width: 450px;
-    z-index: 999999;
-    backdrop-filter: blur(15px);
-    -webkit-backdrop-filter: blur(15px);
-    color: #e0e0e0;
-    text-align: center;
+    border-radius: 25px;
+    padding: 0;
+    width: 550px;
+    max-width: 90vw;
+    max-height: 85vh;
     display: none;
-    transition: transform 0.3s ease-out, opacity 0.3s ease-out;
-    box-shadow: 0 8px 32px 0 rgba(0, 217, 255, 0.25);
+    flex-direction: column;
+    z-index: 99999999;
+    box-shadow: 0 8px 32px 0 rgba(0, 217, 255, 0.3);
+    opacity: 0;
+    transition: opacity 0.3s ease;
 }
 
-#settings-menu h2 {
-    margin-bottom: 30px;
-    margin-top: -20px;
-    margin-left: -20px;
-    text-align: left;
-    font-size: 35px;
+.settings-menu.show {
+    display: flex;
+    opacity: 1;
+}
+
+.settings-menu h2 {
+    margin: 0;
+    padding: 25px 30px;
+    font-size: 28px;
     font-weight: 700;
-    color: #00D9FF;
-    letter-spacing: 2px;
-    text-shadow: 0 0 20px rgba(0, 217, 255, 0.5);
+    color: var(--clg-primary, #00D9FF);
+    border-bottom: 1px solid rgba(0, 217, 255, 0.2);
+    text-align: center;
+}
+
+/* Settings Content Wrapper - Scrollable */
+.settings-content-wrapper {
+    overflow-y: auto;
+    overflow-x: hidden;
+    max-height: calc(85vh - 180px);
+    padding: 0;
+}
+
+.settings-content-wrapper::-webkit-scrollbar {
+    width: 8px;
+}
+
+.settings-content-wrapper::-webkit-scrollbar-track {
+    background: rgba(15, 17, 23, 0.4);
+    border-radius: 10px;
+}
+
+.settings-content-wrapper::-webkit-scrollbar-thumb {
+    background: var(--clg-primary, #00D9FF);
+    border-radius: 10px;
+}
+
+.settings-content-wrapper::-webkit-scrollbar-thumb:hover {
+    background: var(--clg-primary-light, #00eeff);
 }
 
 #settings-menu select {
@@ -81,7 +112,7 @@
 }
 
 .settings-menu.open {
-    display: block;
+    display: flex;
     opacity: 1;
     animation: openMenu 0.4s forwards;
 }
@@ -118,7 +149,7 @@
 }
 
 .transport-selected::after {
-    content: "\f107";
+    content: "\\f107";
     font-family: "Font Awesome 6 Pro";
     font-weight: 900;
     font-size: 0.9em;
@@ -217,7 +248,7 @@
 }
 
 /* CLG Toggle Switches */
-#aboutblank-toggle, #navbar-toggle {
+#aboutblank-toggle, #navbar-toggle, #particles-toggle, #history-toggle {
     appearance: none;
     width: 60px;
     height: 30px;
@@ -232,17 +263,17 @@
     transition: all 0.3s ease;
 }
 
-#aboutblank-toggle:hover, #navbar-toggle:hover {
+#aboutblank-toggle:hover, #navbar-toggle:hover, #particles-toggle:hover, #history-toggle:hover {
     border-color: rgba(0, 217, 255, 0.5);
     box-shadow: 0 0 15px rgba(0, 217, 255, 0.2);
 }
 
-#aboutblank-toggle:checked, #navbar-toggle:checked {
+#aboutblank-toggle:checked, #navbar-toggle:checked, #particles-toggle:checked, #history-toggle:checked {
     background: rgba(0, 217, 255, 0.3);
     border-color: rgba(0, 217, 255, 0.6);
 }
 
-#aboutblank-toggle::before, #navbar-toggle::before {
+#aboutblank-toggle::before, #navbar-toggle::before, #particles-toggle::before, #history-toggle::before {
     content: '';
     width: 26px;
     height: 26px;
@@ -255,7 +286,7 @@
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
 }
 
-#aboutblank-toggle:checked::before, #navbar-toggle:checked::before {
+#aboutblank-toggle:checked::before, #navbar-toggle:checked::before, #particles-toggle:checked::before, #history-toggle:checked::before {
     transform: translateX(30px);
     background: linear-gradient(135deg, #00D9FF, #00eeff);
     box-shadow: 0 0 10px rgba(0, 217, 255, 0.6);
@@ -286,53 +317,47 @@
     display: flex;
     justify-content: flex-start;
     transition: 0.3s ease;
-    margin-bottom: 20px;
+    margin: 0;
+    padding: 15px 20px 0 20px;
     gap: 8px;
+    border-bottom: 1px solid rgba(0, 217, 255, 0.1);
 }
 
 .tab-button {
-    background: rgba(15, 17, 23, 0.8);
+    background: rgba(15, 17, 23, 0.6);
     color: #e0e0e0;
     padding: 12px 18px;
     border: 1px solid rgba(0, 217, 255, 0.2);
-    border-radius: 15px;
+    border-radius: 15px 15px 0 0;
     font-size: 16px;
     font-family: 'Space Grotesk', sans-serif;
     font-weight: 500;
     cursor: none;
     transition: all 0.3s ease;
-    margin-top: -10px;
 }
 
 .tab-button:hover {
     background: rgba(15, 17, 23, 0.95);
     border-color: rgba(0, 217, 255, 0.5);
     color: #00D9FF;
-    transform: translateY(-2px);
 }
 
 .tab-button.active {
     background: rgba(0, 217, 255, 0.2);
     border-color: rgba(0, 217, 255, 0.6);
+    border-bottom-color: transparent;
     color: #00D9FF;
-    transform: translateY(-4px);
     box-shadow: 0 4px 15px rgba(0, 217, 255, 0.3);
 }
 
 .tab-content {
-    opacity: 0;
-    max-height: 0;
-    transform: translateX(-100%);
-    visibility: hidden;
-    transition: opacity 0.3s ease, transform 0.5s ease-out, max-height 0.3s ease-in-out, visibility 0s linear 0.3s;
+    display: none;
+    padding: 25px 30px 30px 30px;
+    animation: fadeIn 0.3s ease;
 }
 
 .tab-content.active {
-    opacity: 1;
-    max-height: 430px;
-    transform: translateX(0);
-    visibility: visible;
-    transition: opacity 0.3s ease, transform 0.2s ease-out, max-height 0.5s ease-in-out;
+    display: block;
 }
 
 @keyframes openMenu {
@@ -354,6 +379,15 @@
     100% {
         opacity: 0;
         transform: translate(-50%, -50%) scale(0.8);
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
     }
 }
 
@@ -506,7 +540,7 @@
 }
 
 .search-selected::after {
-    content: "\f107";
+    content: "\\f107";
     font-family: "Font Awesome 6 Pro";
     font-weight: 900;
     font-size: 0.9em;
