@@ -33,15 +33,6 @@ body[data-theme="green"] {
     --clg-shadow: rgba(16, 185, 129, 0.5);
 }
 
-/* Custom Smooth Cursor - Fixed Positioning */
-* {
-    cursor: none !important;
-}
-
-body {
-    cursor: none;
-}
-
 /* Custom Smooth Cursor - Single Dynamic Dot */
 * {
     cursor: none !important;
@@ -94,6 +85,7 @@ iframe * {
 body:has(.iframe:hover) .custom-cursor-dot {
     opacity: 0;
 }
+
 
 
 
