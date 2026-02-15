@@ -16,7 +16,7 @@
     max-height: 85vh;
     display: none;
     flex-direction: column;
-    z-index: 99999999;
+    z-index: 999999;
     box-shadow: 0 8px 32px 0 rgba(0, 217, 255, 0.3);
     opacity: 0;
     transition: opacity 0.3s ease;
@@ -87,8 +87,8 @@
 
 #close-settings {
     position: absolute;
-    top: 17px;
-    right: 15px;
+    top: 25px;
+    right: 25px;
     background-color: transparent;
     border: none;
     padding: 0;
@@ -124,7 +124,6 @@
 .transport-selector {
     position: relative;
     width: 100%;
-    max-width: 300px;
     margin-bottom: 15px;
 }
 
@@ -176,6 +175,7 @@
     transition: max-height 0.3s ease, opacity 0.3s ease;
     opacity: 0;
     box-shadow: 0 4px 16px rgba(0, 217, 255, 0.2);
+    z-index: 10;
 }
 
 .transport-options.transport-show {
@@ -198,9 +198,8 @@
 
 #wisp-server {
     width: 100%;
-    max-width: 270px;
     padding: 10px 15px;
-    margin-left: -80px;
+    margin: 0 0 15px 0;
     background: rgba(15, 17, 23, 0.8);
     color: #e0e0e0;
     border: 1px solid rgba(0, 217, 255, 0.2);
@@ -209,6 +208,7 @@
     font-family: 'Space Grotesk', sans-serif;
     outline: none;
     transition: all 0.3s ease;
+    box-sizing: border-box;
 }
 
 #wisp-server:hover,
@@ -224,17 +224,18 @@
 }
 
 #save-wisp-url {
-    padding: 10px 16px;
+    padding: 10px 20px;
     background-color: #00D9FF;
     border: 1px solid rgba(0, 217, 255, 0.3);
     color: #0f1117;
     font-size: 16px;
     font-family: 'Space Grotesk', sans-serif;
     font-weight: 600;
-    margin-left: 0;
+    margin: 0;
     border-radius: 15px;
     cursor: none;
     transition: all 0.3s ease;
+    width: 100%;
 }
 
 #save-wisp-url:hover {
@@ -248,32 +249,44 @@
 }
 
 /* CLG Toggle Switches */
-#aboutblank-toggle, #navbar-toggle, #particles-toggle, #history-toggle {
+#aboutblank-toggle, 
+#navbar-toggle, 
+#particles-toggle, 
+#history-toggle {
     appearance: none;
     width: 60px;
     height: 30px;
-    margin-left: -390px;
+    margin: 0 0 15px 0;
     background: rgba(15, 17, 23, 0.8);
-    margin-bottom: 10px;
     border-radius: 30px;
     border: 1px solid rgba(0, 217, 255, 0.2);
     position: relative;
     outline: none;
     cursor: none;
     transition: all 0.3s ease;
+    display: block;
 }
 
-#aboutblank-toggle:hover, #navbar-toggle:hover, #particles-toggle:hover, #history-toggle:hover {
+#aboutblank-toggle:hover, 
+#navbar-toggle:hover, 
+#particles-toggle:hover, 
+#history-toggle:hover {
     border-color: rgba(0, 217, 255, 0.5);
     box-shadow: 0 0 15px rgba(0, 217, 255, 0.2);
 }
 
-#aboutblank-toggle:checked, #navbar-toggle:checked, #particles-toggle:checked, #history-toggle:checked {
+#aboutblank-toggle:checked, 
+#navbar-toggle:checked, 
+#particles-toggle:checked, 
+#history-toggle:checked {
     background: rgba(0, 217, 255, 0.3);
     border-color: rgba(0, 217, 255, 0.6);
 }
 
-#aboutblank-toggle::before, #navbar-toggle::before, #particles-toggle::before, #history-toggle::before {
+#aboutblank-toggle::before, 
+#navbar-toggle::before, 
+#particles-toggle::before, 
+#history-toggle::before {
     content: '';
     width: 26px;
     height: 26px;
@@ -286,7 +299,10 @@
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
 }
 
-#aboutblank-toggle:checked::before, #navbar-toggle:checked::before, #particles-toggle:checked::before, #history-toggle:checked::before {
+#aboutblank-toggle:checked::before, 
+#navbar-toggle:checked::before, 
+#particles-toggle:checked::before, 
+#history-toggle:checked::before {
     transform: translateX(30px);
     background: linear-gradient(135deg, #00D9FF, #00eeff);
     box-shadow: 0 0 10px rgba(0, 217, 255, 0.6);
@@ -294,7 +310,7 @@
 
 #settings-menu label {
     display: block;
-    margin-bottom: 15px;
+    margin-bottom: 10px;
     text-align: left;
     font-size: 18px;
     font-weight: 600;
@@ -305,11 +321,9 @@
 #settings-menu p {
     font-size: 14px;
     color: #b3b3b3;
-    margin-top: -5px;
+    margin: 0 0 15px 0;
     text-align: left;
     font-weight: 400;
-    margin-bottom: 10px;
-    transition: color 0.3s ease;
     font-family: 'Space Grotesk', sans-serif;
 }
 
@@ -353,11 +367,25 @@
 .tab-content {
     display: none;
     padding: 25px 30px 30px 30px;
-    animation: fadeIn 0.3s ease;
+    opacity: 0;
+    transform: translateX(-20px);
+    transition: opacity 0.3s ease, transform 0.3s ease;
 }
 
 .tab-content.active {
     display: block;
+    animation: slideInTab 0.4s ease forwards;
+}
+
+@keyframes slideInTab {
+    0% {
+        opacity: 0;
+        transform: translateX(-20px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateX(0);
+    }
 }
 
 @keyframes openMenu {
