@@ -1635,16 +1635,16 @@ body.locked #greeting {
    WIDGET DASHBOARD
    ======================================== */
 #widget-dashboard {
-    position: absolute;
+    position: fixed;
     top: 0;
     left: 0;
-    width: 100%;
-    height: 100%;
+    width: 100vw;
+    height: 100vh;
     background: linear-gradient(135deg, #0f1117 0%, #1a1d29 100%);
     overflow-y: auto;
-    padding: 40px 20px;
+    padding: 80px 20px 40px 20px;
     animation: dashboardFadeIn 0.5s ease;
-    z-index: 1;
+    z-index: 100;
 }
 
 .dashboard-container {
