@@ -20,7 +20,7 @@ class SplashScreen {
         splash.innerHTML = `
             <div class="splash-content">
                 <div class="splash-logo">
-                    <img src="/assets/images/clifford-icon.png" alt="CLG">
+                    <img src="/assets/images/icons/clg-bunny.png" alt="CLG">
                     <h1>CLG<span class="splash-dot">.</span></h1>
                 </div>
                 <div class="splash-tagline">Powered by CLG</div>
