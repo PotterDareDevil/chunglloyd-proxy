@@ -18,30 +18,46 @@ class WidgetDashboard {
     }
 
     checkIfHomepage() {
-        // Show dashboard when no site is loaded
+    // Only show dashboard when truly on homepage
+    const checkAndShow = () => {
         const iframe = document.querySelector('.iframe');
+        const urlBar = document.querySelector('input[type="text"]');
         
-        if (!iframe || !iframe.src || iframe.src === 'about:blank') {
-            this.showDashboard();
-        }
-
-        // Monitor for iframe changes
-        const observer = new MutationObserver(() => {
-            const currentIframe = document.querySelector('.iframe');
-            if (!currentIframe || !currentIframe.src || currentIframe.src === 'about:blank') {
+        // Show dashboard if iframe doesn't exist, has no src, or is about:blank
+        if (!iframe || !iframe.src || iframe.src === '' || iframe.src === 'about:blank' || iframe.src.includes('about:blank')) {
+            // Also check if URL bar is empty
+            if (!urlBar || !urlBar.value || urlBar.value === '') {
                 this.showDashboard();
             } else {
                 this.hideDashboard();
             }
-        });
+        } else {
+            this.hideDashboard();
+        }
+    };
 
-        observer.observe(document.body, {
-            childList: true,
-            subtree: true,
-            attributes: true,
-            attributeFilter: ['src']
-        });
-    }
+    // Check on load
+    setTimeout(checkAndShow, 500);
+
+    // Monitor for changes
+    const observer = new MutationObserver(checkAndShow);
+    observer.observe(document.body, {
+        childList: true,
+        subtree: true,
+        attributes: true,
+        attributeFilter: ['src']
+    });
+
+    // Also listen for URL input changes
+    setTimeout(() => {
+        const urlBar = document.querySelector('input[type="text"]');
+        if (urlBar) {
+            urlBar.addEventListener('input', checkAndShow);
+            urlBar.addEventListener('change', checkAndShow);
+        }
+    }, 1000);
+}
+
 
     showDashboard() {
         if (document.getElementById('widget-dashboard')) return;
