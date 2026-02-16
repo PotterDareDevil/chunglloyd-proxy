@@ -1243,3 +1243,390 @@ body.locked #greeting {
         opacity: 0.6;
     }
 }
+
+
+/* ========================================
+   SPLASH SCREEN
+   ======================================== */
+#clg-splash-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: linear-gradient(135deg, #0f1117 0%, #1a1d29 100%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 999999;
+    animation: splashFadeIn 0.3s ease;
+}
+
+#clg-splash-screen.fade-out {
+    animation: splashFadeOut 0.5s ease forwards;
+}
+
+.splash-content {
+    text-align: center;
+}
+
+.splash-logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.splash-logo img {
+    width: 80px;
+    height: 80px;
+    animation: logoSpin 1s ease;
+}
+
+.splash-logo h1 {
+    font-size: 72px;
+    font-weight: 800;
+    color: var(--clg-primary, #00D9FF);
+    margin: 0;
+    animation: logoSlide 0.5s ease;
+}
+
+.splash-dot {
+    color: var(--clg-primary, #00D9FF);
+    animation: dotBlink 1s infinite;
+}
+
+.splash-tagline {
+    font-size: 18px;
+    color: #b3b3b3;
+    font-weight: 500;
+    animation: taglineFade 1s ease 0.3s both;
+}
+
+@keyframes splashFadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes splashFadeOut {
+    to { opacity: 0; }
+}
+
+@keyframes logoSpin {
+    0% { transform: rotate(0deg) scale(0.5); opacity: 0; }
+    100% { transform: rotate(360deg) scale(1); opacity: 1; }
+}
+
+@keyframes logoSlide {
+    from { transform: translateX(-50px); opacity: 0; }
+    to { transform: translateX(0); opacity: 1; }
+}
+
+@keyframes dotBlink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
+}
+
+@keyframes taglineFade {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* ========================================
+   PROGRESS BAR
+   ======================================== */
+#clg-progress-bar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background: rgba(15, 17, 23, 0.5);
+    z-index: 9999;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+}
+
+#clg-progress-bar.active {
+    opacity: 1;
+}
+
+.progress-bar-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--clg-primary, #00D9FF), #00eeff);
+    width: 0%;
+    transition: width 0.3s ease;
+    box-shadow: 0 0 10px var(--clg-primary, #00D9FF);
+}
+
+/* ========================================
+   WELCOME SCREEN
+   ======================================== */
+#clg-welcome-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 999998;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    animation: fadeIn 0.3s ease;
+}
+
+#clg-welcome-screen.fade-out {
+    animation: fadeOut 0.3s ease forwards;
+}
+
+.welcome-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(15, 17, 23, 0.95);
+    backdrop-filter: blur(10px);
+}
+
+.welcome-modal {
+    position: relative;
+    background: rgba(26, 29, 41, 0.95);
+    border: 1px solid rgba(0, 217, 255, 0.3);
+    border-radius: 25px;
+    width: 500px;
+    max-width: 90vw;
+    padding: 0;
+    box-shadow: 0 8px 32px rgba(0, 217, 255, 0.3);
+    animation: slideUp 0.4s ease;
+}
+
+.welcome-header {
+    padding: 30px 30px 20px 30px;
+    border-bottom: 1px solid rgba(0, 217, 255, 0.2);
+}
+
+.welcome-progress {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+
+.progress-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: rgba(0, 217, 255, 0.2);
+    transition: all 0.3s ease;
+}
+
+.progress-dot.active {
+    background: var(--clg-primary, #00D9FF);
+    box-shadow: 0 0 10px var(--clg-primary, #00D9FF);
+}
+
+.welcome-content {
+    padding: 40px 40px;
+    text-align: center;
+}
+
+.welcome-icon {
+    font-size: 64px;
+    color: var(--clg-primary, #00D9FF);
+    margin-bottom: 20px;
+    display: block;
+    transition: opacity 0.2s ease;
+}
+
+.welcome-title {
+    font-size: 28px;
+    font-weight: 700;
+    color: #e0e0e0;
+    margin: 0 0 15px 0;
+    transition: opacity 0.2s ease;
+}
+
+.welcome-description {
+    font-size: 16px;
+    color: #b3b3b3;
+    line-height: 1.6;
+    margin: 0;
+    transition: opacity 0.2s ease;
+}
+
+.welcome-footer {
+    padding: 20px 30px 30px 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.welcome-skip {
+    background: none;
+    border: none;
+    color: #b3b3b3;
+    font-size: 14px;
+    cursor: none;
+    transition: color 0.3s ease;
+}
+
+.welcome-skip:hover {
+    color: var(--clg-primary, #00D9FF);
+}
+
+.welcome-nav {
+    display: flex;
+    gap: 10px;
+}
+
+.welcome-prev,
+.welcome-next {
+    padding: 10px 20px;
+    border-radius: 12px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: none;
+    transition: all 0.3s ease;
+    border: none;
+}
+
+.welcome-prev {
+    background: rgba(0, 217, 255, 0.1);
+    color: var(--clg-primary, #00D9FF);
+    border: 1px solid rgba(0, 217, 255, 0.3);
+}
+
+.welcome-prev:hover:not(:disabled) {
+    background: rgba(0, 217, 255, 0.2);
+}
+
+.welcome-prev:disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+}
+
+.welcome-next {
+    background: var(--clg-primary, #00D9FF);
+    color: #0f1117;
+}
+
+.welcome-next:hover {
+    background: #00eeff;
+    box-shadow: 0 0 20px rgba(0, 217, 255, 0.5);
+}
+
+/* ========================================
+   CLIFFORD MASCOT
+   ======================================== */
+#clifford-mascot {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 9998;
+    animation: mascotSlideIn 0.5s ease;
+}
+
+.clifford-container {
+    position: relative;
+}
+
+.clifford-img {
+    width: 80px;
+    height: 80px;
+    cursor: none;
+    transition: transform 0.3s ease;
+    filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3));
+}
+
+.clifford-img:hover {
+    transform: scale(1.1);
+}
+
+.clifford-speech-bubble {
+    position: absolute;
+    bottom: 90px;
+    right: 0;
+    background: rgba(0, 217, 255, 0.95);
+    color: #0f1117;
+    padding: 10px 15px;
+    border-radius: 15px;
+    font-size: 14px;
+    font-weight: 600;
+    white-space: nowrap;
+    opacity: 0;
+    transform: translateY(10px);
+    transition: all 0.3s ease;
+    pointer-events: none;
+}
+
+.clifford-speech-bubble::after {
+    content: '';
+    position: absolute;
+    bottom: -8px;
+    right: 20px;
+    width: 0;
+    height: 0;
+    border-left: 8px solid transparent;
+    border-right: 8px solid transparent;
+    border-top: 8px solid rgba(0, 217, 255, 0.95);
+}
+
+.clifford-speech-bubble.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Clifford Animations */
+@keyframes mascotSlideIn {
+    from { transform: translateX(150px); opacity: 0; }
+    to { transform: translateX(0); opacity: 1; }
+}
+
+.clifford-bounce {
+    animation: cliffordBounce 0.6s ease;
+}
+
+@keyframes cliffordBounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-20px); }
+}
+
+.clifford-wiggle {
+    animation: cliffordWiggle 0.5s ease;
+}
+
+@keyframes cliffordWiggle {
+    0%, 100% { transform: rotate(0deg); }
+    25% { transform: rotate(-10deg); }
+    75% { transform: rotate(10deg); }
+}
+
+.clifford-spin {
+    animation: cliffordSpin 0.6s ease;
+}
+
+@keyframes cliffordSpin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+.clifford-jump {
+    animation: cliffordJump 0.5s ease;
+}
+
+@keyframes cliffordJump {
+    0%, 100% { transform: translateY(0) scale(1); }
+    50% { transform: translateY(-30px) scale(1.1); }
+}
+
+.clifford-wave {
+    animation: cliffordWave 0.6s ease;
+}
+
+@keyframes cliffordWave {
+    0%, 100% { transform: rotate(0deg); }
+    25%, 75% { transform: rotate(-15deg); }
+    50% { transform: rotate(15deg); }
+}
