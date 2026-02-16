@@ -18,7 +18,7 @@ class CliffordMascot {
         mascot.id = 'clifford-mascot';
         mascot.innerHTML = `
             <div class="clifford-container">
-                <img src="/assets/images/clifford-icon.png" alt="Clifford" class="clifford-img">
+               <img src="/assets/images/icons/clg-bunny.png" alt="Clifford" class="clifford-img">
                 <div class="clifford-speech-bubble"></div>
             </div>
         `;
