@@ -1636,10 +1636,11 @@ body.locked #greeting {
    ======================================== */
 #integrated-widgets {
     max-width: 1400px;
-    margin: 40px auto;
-    padding: 0 20px;
+    margin: 40px auto 150px auto;
+    padding: 0 20px 100px 20px;
     animation: widgetsFadeIn 0.6s ease;
 }
+
 
 .widgets-header {
     display: flex;
