@@ -1,105 +1,161 @@
-// CLG Widget Dashboard
+// CLG Integrated Widget Dashboard
 class WidgetDashboard {
     constructor() {
-        this.widgets = {
-            clock: true,
-            weather: false, // Will add weather API later if wanted
-            quickNotes: true,
-            calculator: true,
-            recentSites: true,
-            stats: true
-        };
+        this.widgets = this.loadWidgetPreferences();
         this.init();
     }
 
     init() {
-        this.loadWidgetPreferences();
-        this.checkIfHomepage();
+        this.injectWidgets();
+        this.setupWidgetToggle();
     }
 
-    checkIfHomepage() {
-    // Only show dashboard when truly on homepage
-    const checkAndShow = () => {
-        const iframe = document.querySelector('.iframe');
-        const urlBar = document.querySelector('input[type="text"]');
+    injectWidgets() {
+        // Find your existing homepage content area
+        const homepage = document.querySelector('.home-content') || 
+                        document.querySelector('.main-content') || 
+                        document.getElementById('home') ||
+                        document.body;
+
+        // Only inject if not already there
+        if (document.getElementById('integrated-widgets')) return;
+
+        // Create widgets container
+        const widgetsContainer = document.createElement('div');
+        widgetsContainer.id = 'integrated-widgets';
+        widgetsContainer.innerHTML = `
+            <div class="widgets-header">
+                <h2>Quick Widgets</h2>
+                <button class="customize-widgets-btn" id="customize-widgets">
+                    <i class="fa-regular fa-sliders"></i> Customize
+                </button>
+            </div>
+            <div class="widgets-grid" id="widgets-grid">
+                ${this.renderActiveWidgets()}
+            </div>
+        `;
+
+        // Append after search bar and quick access
+        const searchBar = document.querySelector('.search-container') || 
+                         document.querySelector('.url-bar') ||
+                         document.querySelector('input[type="text"]')?.parentElement;
         
-        // Show dashboard if iframe doesn't exist, has no src, or is about:blank
-        if (!iframe || !iframe.src || iframe.src === '' || iframe.src === 'about:blank' || iframe.src.includes('about:blank')) {
-            // Also check if URL bar is empty
-            if (!urlBar || !urlBar.value || urlBar.value === '') {
-                this.showDashboard();
-            } else {
-                this.hideDashboard();
-            }
+        if (searchBar && searchBar.parentElement) {
+            searchBar.parentElement.insertBefore(widgetsContainer, searchBar.nextSibling);
         } else {
-            this.hideDashboard();
+            homepage.appendChild(widgetsContainer);
         }
-    };
-
-    // Check on load
-    setTimeout(checkAndShow, 500);
-
-    // Monitor for changes
-    const observer = new MutationObserver(checkAndShow);
-    observer.observe(document.body, {
-        childList: true,
-        subtree: true,
-        attributes: true,
-        attributeFilter: ['src']
-    });
-
-    // Also listen for URL input changes
-    setTimeout(() => {
-        const urlBar = document.querySelector('input[type="text"]');
-        if (urlBar) {
-            urlBar.addEventListener('input', checkAndShow);
-            urlBar.addEventListener('change', checkAndShow);
-        }
-    }, 1000);
-}
-
-
-    showDashboard() {
-        if (document.getElementById('widget-dashboard')) return;
-
-        const dashboard = document.createElement('div');
-        dashboard.id = 'widget-dashboard';
-        dashboard.innerHTML = this.buildDashboard();
-        
-        const container = document.querySelector('.content-area') || document.body;
-        container.appendChild(dashboard);
 
         this.initializeWidgets();
     }
 
-    hideDashboard() {
-        const dashboard = document.getElementById('widget-dashboard');
-        if (dashboard) {
-            dashboard.remove();
-        }
+    renderActiveWidgets() {
+        let html = '';
+        
+        if (this.widgets.clock) html += this.buildClockWidget();
+        if (this.widgets.quickNotes) html += this.buildNotesWidget();
+        if (this.widgets.calculator) html += this.buildCalculatorWidget();
+        if (this.widgets.recentSites) html += this.buildRecentSitesWidget();
+        if (this.widgets.stats) html += this.buildStatsWidget();
+
+        return html || '<div class="no-widgets">No widgets enabled. Click "Customize" to add some!</div>';
     }
 
-    buildDashboard() {
-        return `
-            <div class="dashboard-container">
-                <div class="dashboard-header">
-                    <h1 class="dashboard-title">Welcome to CLG Proxy</h1>
-                    <p class="dashboard-subtitle">Your private browsing gateway</p>
-                </div>
+    setupWidgetToggle() {
+        setTimeout(() => {
+            const customizeBtn = document.getElementById('customize-widgets');
+            if (customizeBtn) {
+                customizeBtn.addEventListener('click', () => this.showCustomizePanel());
+            }
+        }, 500);
+    }
 
-                <div class="widgets-grid">
-                    ${this.widgets.clock ? this.buildClockWidget() : ''}
-                    ${this.widgets.quickNotes ? this.buildNotesWidget() : ''}
-                    ${this.widgets.calculator ? this.buildCalculatorWidget() : ''}
-                    ${this.widgets.recentSites ? this.buildRecentSitesWidget() : ''}
-                    ${this.widgets.stats ? this.buildStatsWidget() : ''}
+    showCustomizePanel() {
+        // Create modal for customization
+        const modal = document.createElement('div');
+        modal.id = 'widget-customize-modal';
+        modal.innerHTML = `
+            <div class="modal-overlay"></div>
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2>Customize Widgets</h2>
+                    <button class="modal-close" id="close-widget-modal">
+                        <i class="fa-regular fa-times"></i>
+                    </button>
                 </div>
-
-                <div class="dashboard-footer">
-                    <p>Start browsing by entering a URL in the bar above</p>
+                <div class="modal-body">
+                    <div class="widget-toggle">
+                        <label>
+                            <input type="checkbox" id="toggle-clock" ${this.widgets.clock ? 'checked' : ''}>
+                            <span class="toggle-label">
+                                <i class="fa-regular fa-clock"></i> Clock Widget
+                            </span>
+                        </label>
+                    </div>
+                    <div class="widget-toggle">
+                        <label>
+                            <input type="checkbox" id="toggle-notes" ${this.widgets.quickNotes ? 'checked' : ''}>
+                            <span class="toggle-label">
+                                <i class="fa-regular fa-note-sticky"></i> Quick Notes
+                            </span>
+                        </label>
+                    </div>
+                    <div class="widget-toggle">
+                        <label>
+                            <input type="checkbox" id="toggle-calc" ${this.widgets.calculator ? 'checked' : ''}>
+                            <span class="toggle-label">
+                                <i class="fa-regular fa-calculator"></i> Calculator
+                            </span>
+                        </label>
+                    </div>
+                    <div class="widget-toggle">
+                        <label>
+                            <input type="checkbox" id="toggle-recent" ${this.widgets.recentSites ? 'checked' : ''}>
+                            <span class="toggle-label">
+                                <i class="fa-regular fa-clock-rotate-left"></i> Recent Sites
+                            </span>
+                        </label>
+                    </div>
+                    <div class="widget-toggle">
+                        <label>
+                            <input type="checkbox" id="toggle-stats" ${this.widgets.stats ? 'checked' : ''}>
+                            <span class="toggle-label">
+                                <i class="fa-regular fa-chart-line"></i> Your Stats
+                            </span>
+                        </label>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn-secondary" id="cancel-widget-modal">Cancel</button>
+                    <button class="btn-primary" id="save-widgets">Save Changes</button>
                 </div>
             </div>
         `;
+
+        document.body.appendChild(modal);
+
+        // Setup listeners
+        document.getElementById('close-widget-modal').addEventListener('click', () => modal.remove());
+        document.getElementById('cancel-widget-modal').addEventListener('click', () => modal.remove());
+        document.querySelector('.modal-overlay').addEventListener('click', () => modal.remove());
+        
+        document.getElementById('save-widgets').addEventListener('click', () => {
+            this.widgets.clock = document.getElementById('toggle-clock').checked;
+            this.widgets.quickNotes = document.getElementById('toggle-notes').checked;
+            this.widgets.calculator = document.getElementById('toggle-calc').checked;
+            this.widgets.recentSites = document.getElementById('toggle-recent').checked;
+            this.widgets.stats = document.getElementById('toggle-stats').checked;
+            
+            this.saveWidgetPreferences();
+            modal.remove();
+            
+            // Refresh widgets
+            const grid = document.getElementById('widgets-grid');
+            if (grid) {
+                grid.innerHTML = this.renderActiveWidgets();
+                this.initializeWidgets();
+            }
+        });
     }
 
     buildClockWidget() {
@@ -148,7 +204,7 @@ class WidgetDashboard {
                     <button class="calc-btn" data-action="number" data-value="7">7</button>
                     <button class="calc-btn" data-action="number" data-value="8">8</button>
                     <button class="calc-btn" data-action="number" data-value="9">9</button>
-                    <button class="calc-btn" data-action="operator" data-value="-">-</button>
+                    <button class="calc-btn" data-action="operator" data-value="-">−</button>
                     
                     <button class="calc-btn" data-action="number" data-value="4">4</button>
                     <button class="calc-btn" data-action="number" data-value="5">5</button>
@@ -218,30 +274,10 @@ class WidgetDashboard {
     }
 
     initializeWidgets() {
-        // Clock
-        if (this.widgets.clock) {
-            this.startClock();
-        }
-
-        // Notes
-        if (this.widgets.quickNotes) {
-            const notesArea = document.getElementById('quick-notes');
-            if (notesArea) {
-                notesArea.addEventListener('input', (e) => {
-                    localStorage.setItem('clgQuickNotes', e.target.value);
-                });
-            }
-        }
-
-        // Calculator
-        if (this.widgets.calculator) {
-            this.initCalculator();
-        }
-
-        // Recent Sites
-        if (this.widgets.recentSites) {
-            this.initRecentSites();
-        }
+        if (this.widgets.clock) this.startClock();
+        if (this.widgets.quickNotes) this.initNotes();
+        if (this.widgets.calculator) this.initCalculator();
+        if (this.widgets.recentSites) this.initRecentSites();
     }
 
     startClock() {
@@ -256,6 +292,15 @@ class WidgetDashboard {
 
         updateClock();
         setInterval(updateClock, 1000);
+    }
+
+    initNotes() {
+        const notesArea = document.getElementById('quick-notes');
+        if (notesArea) {
+            notesArea.addEventListener('input', (e) => {
+                localStorage.setItem('clgQuickNotes', e.target.value);
+            });
+        }
     }
 
     initCalculator() {
@@ -341,11 +386,11 @@ class WidgetDashboard {
         items.forEach(item => {
             item.addEventListener('click', () => {
                 const url = item.dataset.url;
-                // Trigger site load (you'll need to integrate with your existing URL loading system)
                 const urlInput = document.querySelector('input[type="text"]');
                 if (urlInput) {
                     urlInput.value = url;
-                    urlInput.dispatchEvent(new Event('submit'));
+                    const form = urlInput.closest('form');
+                    if (form) form.dispatchEvent(new Event('submit'));
                 }
             });
         });
@@ -362,9 +407,9 @@ class WidgetDashboard {
     formatDate(date) {
         return date.toLocaleDateString('en-US', { 
             weekday: 'long', 
-            year: 'numeric', 
             month: 'long', 
-            day: 'numeric' 
+            day: 'numeric',
+            year: 'numeric'
         });
     }
 
@@ -387,8 +432,19 @@ class WidgetDashboard {
     }
 
     loadWidgetPreferences() {
-        const prefs = JSON.parse(localStorage.getItem('clgWidgetPrefs') || '{}');
-        this.widgets = { ...this.widgets, ...prefs };
+        const defaults = {
+            clock: true,
+            quickNotes: true,
+            calculator: true,
+            recentSites: true,
+            stats: true
+        };
+        const saved = JSON.parse(localStorage.getItem('clgWidgetPrefs') || '{}');
+        return { ...defaults, ...saved };
+    }
+
+    saveWidgetPreferences() {
+        localStorage.setItem('clgWidgetPrefs', JSON.stringify(this.widgets));
     }
 }
 
