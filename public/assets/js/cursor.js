@@ -1,4 +1,4 @@
-// Custom Cursor - Single Dynamic Dot
+// Custom Cursor - Fixed for Scaling
 document.addEventListener('DOMContentLoaded', () => {
     const cursorDot = document.createElement('div');
     cursorDot.className = 'custom-cursor-dot';
@@ -11,19 +11,20 @@ document.addEventListener('DOMContentLoaded', () => {
         mouseX = e.clientX;
         mouseY = e.clientY;
         
+        // Fixed positioning instead of absolute
         cursorDot.style.left = `${mouseX}px`;
         cursorDot.style.top = `${mouseY}px`;
     });
 
     // Hover effects - use event delegation for dynamic elements
     document.addEventListener('mouseover', (e) => {
-        if (e.target.matches('a, button, input, textarea, select, .app-card, .game-card, [onclick], .nav-buttons a, i')) {
+        if (e.target.matches('a, button, input, textarea, select, .app-card, .game-card, [onclick], .nav-buttons a, i, .widget, .qa-action, .quick-card')) {
             cursorDot.classList.add('hover');
         }
     });
     
     document.addEventListener('mouseout', (e) => {
-        if (e.target.matches('a, button, input, textarea, select, .app-card, .game-card, [onclick], .nav-buttons a, i')) {
+        if (e.target.matches('a, button, input, textarea, select, .app-card, .game-card, [onclick], .nav-buttons a, i, .widget, .qa-action, .quick-card')) {
             cursorDot.classList.remove('hover');
         }
     });
